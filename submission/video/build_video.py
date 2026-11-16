@@ -22,7 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 SCENES = HERE / "scenes"
 SHOTS = HERE / "shots"
-TEAM = os.environ.get("PARADOX_TEAM", "Team Paradox")
+TEAM = os.environ.get("PARADOX_TEAM", "Team BTYECODE")  # shown on screen, exactly as registered
+TEAM_SAY = os.environ.get("PARADOX_TEAM_SAY", "Team Byte Code")  # how it is spoken
 XF = 0.5  # crossfade seconds
 BROWSERS = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", r"C:\Program Files\Google\Chrome\Application\chrome.exe",
             "/usr/bin/google-chrome", "/usr/bin/chromium"]
@@ -73,7 +74,7 @@ def scenes() -> list[tuple[str, str, str, str]]:
     add = lambda name, step, line, html: S.append((name, step, line, html))
 
     add("cover", "Title",
-        f"Hi, we're {TEAM}. This is our idea for the security track of VoyageHack.",
+        f"Hi, we're {TEAM_SAY}, and this is Paradox, our idea for the security track of VoyageHack.",
         page(f"""<div class="pad" style="justify-content:flex-start;background:linear-gradient(135deg,#2A78D6 0%,#226ECA 45%,#1C4D91 100%)">
   <div style="position:absolute;right:-150px;top:-150px;width:540px;height:540px;border-radius:50%;background:var(--yellow)"></div>
   <div style="position:absolute;right:260px;bottom:-80px;width:160px;height:160px;border-radius:50%;background:#fff"></div>
