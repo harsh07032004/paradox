@@ -1,0 +1,98 @@
+[
+ {
+  "start": 0.0,
+  "end": 7.8,
+  "step": "Title",
+  "line": "Hi, we're Team Paradox. This is our idea for the security track of VoyageHack."
+ },
+ {
+  "start": 7.8,
+  "end": 27.2,
+  "step": "The problem",
+  "line": "Here's the thing about B2B travel. The bugs that cost real money don't look like bugs. A refund that pays out twice? The server says two hundred, OK. Same with a fare the agent sets themselves, or one agency reading another agency's passports."
+ },
+ {
+  "start": 27.2,
+  "end": 34.6,
+  "step": "The idea",
+  "line": "Scanners look for bad inputs. We look for outcomes that should be impossible."
+ },
+ {
+  "start": 34.6,
+  "end": 53.6,
+  "step": "1 · Learn",
+  "line": "Paradox starts with just what TBO gives us: a staging link, a few test accounts, some recorded traffic and logs. No API docs. From that, it works out the routes, how people actually book, who owns what, and where the money sits."
+ },
+ {
+  "start": 53.6,
+  "end": 66.2,
+  "step": "2 · Mutate",
+  "line": "Then it plays with those journeys the way a sneaky user would. Cancel twice. Skip the payment. Set your own fare. Pretend to be another agency."
+ },
+ {
+  "start": 66.2,
+  "end": 83.6,
+  "step": "3 · Check the laws",
+  "line": "After each try, it checks twelve simple rules. Your wallet can't end up richer. The same booking can't get cheaper. One agency never sees another's data. If a rule breaks, that's a finding. If not, it stays quiet."
+ },
+ {
+  "start": 83.6,
+  "end": 101.4,
+  "step": "Proof",
+  "line": "Like this one. Cancel a booking that's already cancelled, and the wallet gains seven thousand seven hundred and seventy-six rupees. Every single time. Paradox ran it three times to be sure, and cut it down to just four requests."
+ },
+ {
+  "start": 101.4,
+  "end": 113.6,
+  "step": "Canary data",
+  "line": "Every booking it creates carries fake details: a made-up name, email and passport. If those turn up in another agency's account, the leak proves itself."
+ },
+ {
+  "start": 113.6,
+  "end": 126.6,
+  "step": "Ticket",
+  "line": "Each finding turns into a ticket for the team that owns that code, with what it costs in rupees, the exact steps, and how to fix it."
+ },
+ {
+  "start": 126.6,
+  "end": 142.8,
+  "step": "After a deploy",
+  "line": "And it keeps watching. When a new release went out, Paradox tested the changed part first. The new amend feature trusted whatever total the client sent. It was flagged as critical about twelve seconds later."
+ },
+ {
+  "start": 142.8,
+  "end": 151.4,
+  "step": "Retest",
+  "line": "Once the fix shipped, Paradox re-ran its proofs, and the fixed tickets closed on their own."
+ },
+ {
+  "start": 151.4,
+  "end": 161.6,
+  "step": "API inventory",
+  "line": "Along the way, it maps every endpoint, even an old version one route nobody remembered, which was still leaking passports."
+ },
+ {
+  "start": 161.6,
+  "end": 174.6,
+  "step": "Results",
+  "line": "Does it work? We planted a hundred and seventy-two random bugs. Paradox found all of them, with zero false alarms. A regular scanner found about thirty percent."
+ },
+ {
+  "start": 174.6,
+  "end": 188.8,
+  "step": "Holdout",
+  "line": "We also tried it on an airline platform it had never seen. After two small, general fixes, it caught all seven planted bugs, and stayed silent on the clean version."
+ },
+ {
+  "start": 188.8,
+  "end": 201.8,
+  "step": "Safety",
+  "line": "And it's careful. It stays in scope, only touches its own test bookings, slows down if the server struggles, has a kill switch, and logs every request."
+ },
+ {
+  "start": 201.8,
+  "end": 210.4,
+  "step": "Close",
+  "line": "That's Paradox. It catches the bug that makes money appear, before someone else does. Thank you."
+ }
+]
