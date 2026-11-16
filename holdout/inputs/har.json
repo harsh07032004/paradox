@@ -1,0 +1,531 @@
+{
+ "sessions": [
+  {
+   "journey": "hold-ticket-seat",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/v2/session",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "login": "ag.north",
+      "secret": "Sky#North1"
+     },
+     "status": 200,
+     "response_body": {
+      "session": "b70f74e6e9b6ab6708d3c8ae9149b857",
+      "org": "ORG-NORTH",
+      "role": "agent"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/flights",
+     "query": "from=DEL&to=BOM&date=2026-12-20",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "flights": [
+       {
+        "flight_key": "FK-AI865",
+        "carrier": "AI",
+        "fare": 5400.0,
+        "date": "2026-12-20"
+       },
+       {
+        "flight_key": "FK-6E211",
+        "carrier": "6E",
+        "fare": 4890.0,
+        "date": "2026-12-20"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": {
+      "flight_key": "FK-AI865",
+      "passengers": [
+       {
+        "full_name": "Kavya Menon",
+        "passport_no": "NX4417263"
+       }
+      ],
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "promo": null
+     },
+     "status": 200,
+     "response_body": {
+      "pnr": "JLKXEX",
+      "state": "ON_HOLD",
+      "org": "ORG-NORTH",
+      "flight_key": "FK-AI865",
+      "fare": 5400.0,
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "passengers": [
+       {
+        "full_name": "Kavya Menon",
+        "passport_no": "NX*****63"
+       }
+      ],
+      "ancillaries": []
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs/JLKXEX/ticket",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "pnr": "JLKXEX",
+      "state": "TICKETED",
+      "debited": 5400.0
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs/JLKXEX/ancillaries",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": {
+      "item": "SEAT",
+      "count": 1
+     },
+     "status": 200,
+     "response_body": {
+      "pnr": "JLKXEX",
+      "item": "SEAT",
+      "count": 1,
+      "price": 450.0
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/pnrs/JLKXEX",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "pnr": "JLKXEX",
+      "state": "TICKETED",
+      "org": "ORG-NORTH",
+      "flight_key": "FK-AI865",
+      "fare": 5400.0,
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "passengers": [
+       {
+        "full_name": "Kavya Menon",
+        "passport_no": "NX*****63"
+       }
+      ],
+      "ancillaries": [
+       {
+        "item": "SEAT",
+        "count": 1,
+        "price": 450.0
+       }
+      ]
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/pnrs/JLKXEX/eticket",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "eticket": "098-JLKXEX",
+      "pnr": "JLKXEX",
+      "lead_passenger": "Kavya Menon",
+      "contact": "desk@northtravels.example",
+      "state": "TICKETED"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/credit",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "b70f74e6e9b6ab6708d3c8ae9149b857"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "org": "ORG-NORTH",
+      "available": 294150.0,
+      "currency": "INR"
+     }
+    }
+   ]
+  },
+  {
+   "journey": "ticket-then-void",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/v2/session",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "login": "ag.south",
+      "secret": "Sky#South1"
+     },
+     "status": 200,
+     "response_body": {
+      "session": "14c8d20e7782adf870281f6afde280ec",
+      "org": "ORG-SOUTH",
+      "role": "agent"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/flights",
+     "query": "from=BLR&to=GOI&date=2026-12-22",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "flights": [
+       {
+        "flight_key": "FK-6E509",
+        "carrier": "6E",
+        "fare": 3720.0,
+        "date": "2026-12-22"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": {
+      "flight_key": "FK-6E509",
+      "passengers": [
+       {
+        "full_name": "Rohan Pillai",
+        "passport_no": "PS9902114"
+       }
+      ],
+      "contact": {
+       "email": "ops@southtrips.example"
+      },
+      "promo": null
+     },
+     "status": 200,
+     "response_body": {
+      "pnr": "UNMGGB",
+      "state": "ON_HOLD",
+      "org": "ORG-SOUTH",
+      "flight_key": "FK-6E509",
+      "fare": 3720.0,
+      "contact": {
+       "email": "ops@southtrips.example"
+      },
+      "passengers": [
+       {
+        "full_name": "Rohan Pillai",
+        "passport_no": "PS*****14"
+       }
+      ],
+      "ancillaries": []
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs/UNMGGB/ticket",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "pnr": "UNMGGB",
+      "state": "TICKETED",
+      "debited": 3720.0
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs/UNMGGB/void",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "pnr": "UNMGGB",
+      "state": "VOIDED",
+      "credited": 3720.0
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/pnrs/UNMGGB",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "pnr": "UNMGGB",
+      "state": "VOIDED",
+      "org": "ORG-SOUTH",
+      "flight_key": "FK-6E509",
+      "fare": 3720.0,
+      "contact": {
+       "email": "ops@southtrips.example"
+      },
+      "passengers": [
+       {
+        "full_name": "Rohan Pillai",
+        "passport_no": "PS*****14"
+       }
+      ],
+      "ancillaries": []
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/credit",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "14c8d20e7782adf870281f6afde280ec"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "org": "ORG-SOUTH",
+      "available": 300000.0,
+      "currency": "INR"
+     }
+    }
+   ]
+  },
+  {
+   "journey": "promo",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/v2/session",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "login": "ag.north",
+      "secret": "Sky#North1"
+     },
+     "status": 200,
+     "response_body": {
+      "session": "05e3141b7c7e98b787e238d957acb5e2",
+      "org": "ORG-NORTH",
+      "role": "agent"
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "05e3141b7c7e98b787e238d957acb5e2"
+     },
+     "request_body": {
+      "flight_key": "FK-EK511",
+      "passengers": [
+       {
+        "full_name": "Nisha Rao",
+        "passport_no": "NX5512980"
+       }
+      ],
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "promo": "FIRSTFLY"
+     },
+     "status": 200,
+     "response_body": {
+      "pnr": "MCTUXW",
+      "state": "ON_HOLD",
+      "org": "ORG-NORTH",
+      "flight_key": "FK-EK511",
+      "fare": 16974.0,
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "passengers": [
+       {
+        "full_name": "Nisha Rao",
+        "passport_no": "NX*****80"
+       }
+      ],
+      "ancillaries": []
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/v2/pnrs",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "05e3141b7c7e98b787e238d957acb5e2"
+     },
+     "request_body": {
+      "flight_key": "FK-EK511",
+      "passengers": [
+       {
+        "full_name": "Nisha Rao",
+        "passport_no": "NX5512980"
+       }
+      ],
+      "contact": {
+       "email": "desk@northtravels.example"
+      },
+      "promo": "FIRSTFLY"
+     },
+     "status": 422,
+     "response_body": {
+      "message": "promo FIRSTFLY already redeemed by your org",
+      "code": 422
+     }
+    }
+   ]
+  },
+  {
+   "journey": "supervisor-limits",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/v2/session",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "login": "sup.south",
+      "secret": "Sky#South2"
+     },
+     "status": 200,
+     "response_body": {
+      "session": "eda4e901e650bf15e2fd6e5216250b53",
+      "org": "ORG-SOUTH",
+      "role": "supervisor"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/org/limits",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "eda4e901e650bf15e2fd6e5216250b53"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "org": "ORG-SOUTH",
+      "per_ticket_limit": 20000.0
+     }
+    },
+    {
+     "method": "PUT",
+     "path": "/v2/org/limits",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "eda4e901e650bf15e2fd6e5216250b53"
+     },
+     "request_body": {
+      "per_ticket_limit": 25000
+     },
+     "status": 200,
+     "response_body": {
+      "org": "ORG-SOUTH",
+      "per_ticket_limit": 25000.0
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/v2/org/limits",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "eda4e901e650bf15e2fd6e5216250b53"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "org": "ORG-SOUTH",
+      "per_ticket_limit": 25000.0
+     }
+    },
+    {
+     "method": "PUT",
+     "path": "/v2/org/limits",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "X-Session": "eda4e901e650bf15e2fd6e5216250b53"
+     },
+     "request_body": {
+      "per_ticket_limit": 20000
+     },
+     "status": 200,
+     "response_body": {
+      "org": "ORG-SOUTH",
+      "per_ticket_limit": 20000.0
+     }
+    }
+   ]
+  }
+ ]
+}

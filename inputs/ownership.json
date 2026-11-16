@@ -1,0 +1,13 @@
+{
+  "/api/v3/bookings": {"team": "booking-core", "contact": "booking-core@waypoint.example"},
+  "/api/v3/quotes": {"team": "pricing", "contact": "pricing@waypoint.example"},
+  "/api/v3/invoices": {"team": "finance-platform", "contact": "finance-platform@waypoint.example"},
+  "/api/v3/wallet": {"team": "finance-platform", "contact": "finance-platform@waypoint.example"},
+  "/api/v3/agency": {"team": "agency-accounts", "contact": "agency-accounts@waypoint.example"},
+  "/api/v3/me": {"team": "identity", "contact": "identity@waypoint.example"},
+  "/api/v3/auth": {"team": "identity", "contact": "identity@waypoint.example"},
+  "/api/v3/hotels": {"team": "content-search", "contact": "content-search@waypoint.example"},
+  "/api/v3/partner": {"team": "supplier-integrations", "contact": "supplier-int@waypoint.example"},
+  "/api/v1": {"team": "mobile-legacy (archived)", "contact": "booking-core@waypoint.example"},
+  "/internal": {"team": "sre", "contact": "sre@waypoint.example"}
+}

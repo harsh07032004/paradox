@@ -1,0 +1,1326 @@
+{
+ "summary": {
+  "paradox": {
+   "recall": 1.0,
+   "precision": 1.0,
+   "defects_injected": 172,
+   "defects_found": 172,
+   "findings": 211,
+   "false_positives": 0
+  },
+  "baseline": {
+   "recall": 0.29651162790697677,
+   "precision": 0.4358974358974359,
+   "defects_injected": 172,
+   "defects_found": 51,
+   "findings": 117,
+   "false_positives": 66
+  },
+  "paradox_median_cycle_s": 7.3,
+  "paradox_median_first_finding_s": 1.1,
+  "per_defect": {
+   "M01": {
+    "paradox": "10/10",
+    "baseline": "0/10"
+   },
+   "M02": {
+    "paradox": "5/5",
+    "baseline": "0/5"
+   },
+   "M03": {
+    "paradox": "11/11",
+    "baseline": "0/11"
+   },
+   "M04": {
+    "paradox": "6/6",
+    "baseline": "0/6"
+   },
+   "M05": {
+    "paradox": "3/3",
+    "baseline": "0/3"
+   },
+   "M06": {
+    "paradox": "5/5",
+    "baseline": "0/5"
+   },
+   "M07": {
+    "paradox": "10/10",
+    "baseline": "0/10"
+   },
+   "M08": {
+    "paradox": "4/4",
+    "baseline": "0/4"
+   },
+   "M09": {
+    "paradox": "11/11",
+    "baseline": "0/11"
+   },
+   "M10": {
+    "paradox": "9/9",
+    "baseline": "0/9"
+   },
+   "M11": {
+    "paradox": "7/7",
+    "baseline": "7/7"
+   },
+   "M12": {
+    "paradox": "8/8",
+    "baseline": "0/8"
+   },
+   "M13": {
+    "paradox": "5/5",
+    "baseline": "0/5"
+   },
+   "M14": {
+    "paradox": "7/7",
+    "baseline": "7/7"
+   },
+   "M15": {
+    "paradox": "6/6",
+    "baseline": "6/6"
+   },
+   "M16": {
+    "paradox": "9/9",
+    "baseline": "9/9"
+   },
+   "Z01": {
+    "paradox": "22/22",
+    "baseline": "0/22"
+   },
+   "Z02": {
+    "paradox": "22/22",
+    "baseline": "22/22"
+   },
+   "AMEND": {
+    "paradox": "12/12",
+    "baseline": "0/12"
+   }
+  },
+  "trials": 22,
+  "k": 5,
+  "seed": 31337,
+  "rps_cap": 400
+ },
+ "trials": [
+  {
+   "trial": "clean",
+   "release": "v3.0",
+   "defects": [
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 3,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 4.8,
+    "requests": 2224,
+    "first_finding_s": 3.9,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.5,
+    "findings": 4,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.25
+   }
+  },
+  {
+   "trial": "t01",
+   "release": "v3.0",
+   "defects": [
+    "M01",
+    "M03",
+    "M04",
+    "M10",
+    "M16",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M03": true,
+     "M04": true,
+     "M10": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 8,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.4,
+    "requests": 2854,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M03": false,
+     "M04": false,
+     "M10": false,
+     "M16": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.2857142857142857,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t02",
+   "release": "v3.1",
+   "defects": [
+    "M04",
+    "M06",
+    "M07",
+    "M09",
+    "M10",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M04": true,
+     "M06": true,
+     "M07": true,
+     "M09": true,
+     "M10": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 7.3,
+    "requests": 3231,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M04": false,
+     "M06": false,
+     "M07": false,
+     "M09": false,
+     "M10": false,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.125,
+    "findings": 4,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.25
+   }
+  },
+  {
+   "trial": "t03",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M02",
+    "M05",
+    "M09",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M02": true,
+     "M05": true,
+     "M09": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 7.3,
+    "requests": 3210,
+    "first_finding_s": 1.0,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M02": false,
+     "M05": false,
+     "M09": false,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.25,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t04",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M03",
+    "M06",
+    "M12",
+    "M14",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M03": true,
+     "M06": true,
+     "M12": true,
+     "M14": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.9,
+    "requests": 3677,
+    "first_finding_s": 1.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M03": false,
+     "M06": false,
+     "M12": false,
+     "M14": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.25,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t05",
+   "release": "v3.1",
+   "defects": [
+    "M03",
+    "M06",
+    "M08",
+    "M13",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M03": true,
+     "M06": true,
+     "M08": true,
+     "M13": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.4,
+    "requests": 3562,
+    "first_finding_s": 1.0,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M03": false,
+     "M06": false,
+     "M08": false,
+     "M13": false,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.25,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t06",
+   "release": "v3.0",
+   "defects": [
+    "M03",
+    "M09",
+    "M11",
+    "M14",
+    "M16",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M03": true,
+     "M09": true,
+     "M11": true,
+     "M14": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.7,
+    "requests": 2924,
+    "first_finding_s": 1.0,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M03": false,
+     "M09": false,
+     "M11": true,
+     "M14": true,
+     "M16": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.5714285714285714,
+    "findings": 7,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5714285714285714
+   }
+  },
+  {
+   "trial": "t07",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M07",
+    "M12",
+    "M14",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M07": true,
+     "M12": true,
+     "M14": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 11,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.4,
+    "requests": 3693,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M07": false,
+     "M12": false,
+     "M14": true,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.375,
+    "findings": 6,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5
+   }
+  },
+  {
+   "trial": "t08",
+   "release": "v3.0",
+   "defects": [
+    "M06",
+    "M07",
+    "M12",
+    "M14",
+    "M15",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M06": true,
+     "M07": true,
+     "M12": true,
+     "M14": true,
+     "M15": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.8,
+    "requests": 2971,
+    "first_finding_s": 0.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M06": false,
+     "M07": false,
+     "M12": false,
+     "M14": true,
+     "M15": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.42857142857142855,
+    "findings": 6,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5
+   }
+  },
+  {
+   "trial": "t09",
+   "release": "v3.0",
+   "defects": [
+    "M03",
+    "M04",
+    "M07",
+    "M08",
+    "M11",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M03": true,
+     "M04": true,
+     "M07": true,
+     "M08": true,
+     "M11": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 7.3,
+    "requests": 3162,
+    "first_finding_s": 1.2,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M03": false,
+     "M04": false,
+     "M07": false,
+     "M08": false,
+     "M11": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.2857142857142857,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t10",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M03",
+    "M11",
+    "M13",
+    "M15",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M03": true,
+     "M11": true,
+     "M13": true,
+     "M15": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.6,
+    "requests": 3434,
+    "first_finding_s": 0.7,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M03": false,
+     "M11": true,
+     "M13": false,
+     "M15": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.375,
+    "findings": 6,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5
+   }
+  },
+  {
+   "trial": "t11",
+   "release": "v3.0",
+   "defects": [
+    "M01",
+    "M02",
+    "M09",
+    "M12",
+    "M15",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M02": true,
+     "M09": true,
+     "M12": true,
+     "M15": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 8,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.0,
+    "requests": 2714,
+    "first_finding_s": 0.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M02": false,
+     "M09": false,
+     "M12": false,
+     "M15": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.2857142857142857,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t12",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M03",
+    "M04",
+    "M07",
+    "M10",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M03": true,
+     "M04": true,
+     "M07": true,
+     "M10": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.7,
+    "requests": 3599,
+    "first_finding_s": 1.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M03": false,
+     "M04": false,
+     "M07": false,
+     "M10": false,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.125,
+    "findings": 4,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.25
+   }
+  },
+  {
+   "trial": "t13",
+   "release": "v3.1",
+   "defects": [
+    "M03",
+    "M07",
+    "M09",
+    "M10",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M03": true,
+     "M07": true,
+     "M09": true,
+     "M10": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 10.2,
+    "requests": 3448,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M03": false,
+     "M07": false,
+     "M09": false,
+     "M10": false,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.25,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t14",
+   "release": "v3.0",
+   "defects": [
+    "M02",
+    "M09",
+    "M11",
+    "M12",
+    "M15",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M02": true,
+     "M09": true,
+     "M11": true,
+     "M12": true,
+     "M15": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 8,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 5.8,
+    "requests": 2608,
+    "first_finding_s": 0.6,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M02": false,
+     "M09": false,
+     "M11": true,
+     "M12": false,
+     "M15": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.42857142857142855,
+    "findings": 6,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5
+   }
+  },
+  {
+   "trial": "t15",
+   "release": "v3.0",
+   "defects": [
+    "M04",
+    "M05",
+    "M07",
+    "M09",
+    "M10",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M04": true,
+     "M05": true,
+     "M07": true,
+     "M09": true,
+     "M10": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.1,
+    "requests": 2716,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M04": false,
+     "M05": false,
+     "M07": false,
+     "M09": false,
+     "M10": false,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.14285714285714285,
+    "findings": 4,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.25
+   }
+  },
+  {
+   "trial": "t16",
+   "release": "v3.0",
+   "defects": [
+    "M01",
+    "M08",
+    "M09",
+    "M10",
+    "M16",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M08": true,
+     "M09": true,
+     "M10": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 8,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.4,
+    "requests": 2798,
+    "first_finding_s": 1.0,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M08": false,
+     "M09": false,
+     "M10": false,
+     "M16": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.2857142857142857,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t17",
+   "release": "v3.1",
+   "defects": [
+    "M02",
+    "M03",
+    "M07",
+    "M10",
+    "M13",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M02": true,
+     "M03": true,
+     "M07": true,
+     "M10": true,
+     "M13": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.5,
+    "requests": 3625,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M02": false,
+     "M03": false,
+     "M07": false,
+     "M10": false,
+     "M13": false,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.125,
+    "findings": 4,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.25
+   }
+  },
+  {
+   "trial": "t18",
+   "release": "v3.1",
+   "defects": [
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M09": true,
+     "M10": true,
+     "M11": true,
+     "M12": true,
+     "M13": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 9,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 7.7,
+    "requests": 3227,
+    "first_finding_s": 2.8,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M09": false,
+     "M10": false,
+     "M11": true,
+     "M12": false,
+     "M13": false,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.25,
+    "findings": 5,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.4
+   }
+  },
+  {
+   "trial": "t19",
+   "release": "v3.1",
+   "defects": [
+    "M03",
+    "M11",
+    "M12",
+    "M14",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M03": true,
+     "M11": true,
+     "M12": true,
+     "M14": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 8.6,
+    "requests": 3601,
+    "first_finding_s": 1.1,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M03": false,
+     "M11": true,
+     "M12": false,
+     "M14": true,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.5,
+    "findings": 7,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5714285714285714
+   }
+  },
+  {
+   "trial": "t20",
+   "release": "v3.0",
+   "defects": [
+    "M01",
+    "M07",
+    "M09",
+    "M14",
+    "M15",
+    "Z01",
+    "Z02"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M07": true,
+     "M09": true,
+     "M14": true,
+     "M15": true,
+     "Z01": true,
+     "Z02": true
+    },
+    "recall": 1.0,
+    "findings": 10,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 6.6,
+    "requests": 2972,
+    "first_finding_s": 0.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M07": false,
+     "M09": false,
+     "M14": true,
+     "M15": true,
+     "Z01": false,
+     "Z02": true
+    },
+    "recall": 0.42857142857142855,
+    "findings": 6,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.5
+   }
+  },
+  {
+   "trial": "all-on",
+   "release": "v3.1",
+   "defects": [
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "M05",
+    "M06",
+    "M07",
+    "M08",
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14",
+    "M15",
+    "M16",
+    "Z01",
+    "Z02",
+    "AMEND"
+   ],
+   "paradox": {
+    "detected": {
+     "M01": true,
+     "M02": true,
+     "M03": true,
+     "M04": true,
+     "M05": true,
+     "M06": true,
+     "M07": true,
+     "M08": true,
+     "M09": true,
+     "M10": true,
+     "M11": true,
+     "M12": true,
+     "M13": true,
+     "M14": true,
+     "M15": true,
+     "M16": true,
+     "Z01": true,
+     "Z02": true,
+     "AMEND": true
+    },
+    "recall": 1.0,
+    "findings": 22,
+    "false_positives": 0,
+    "fp_list": [],
+    "precision": 1.0,
+    "seconds": 11.5,
+    "requests": 4844,
+    "first_finding_s": 0.5,
+    "suppressed": 0
+   },
+   "baseline": {
+    "detected": {
+     "M01": false,
+     "M02": false,
+     "M03": false,
+     "M04": false,
+     "M05": false,
+     "M06": false,
+     "M07": false,
+     "M08": false,
+     "M09": false,
+     "M10": false,
+     "M11": true,
+     "M12": false,
+     "M13": false,
+     "M14": true,
+     "M15": true,
+     "M16": true,
+     "Z01": false,
+     "Z02": true,
+     "AMEND": false
+    },
+    "recall": 0.2631578947368421,
+    "findings": 8,
+    "false_positives": 3,
+    "fp_list": [
+     "unauthenticated_access @ GET /api/v3/hotels/search",
+     "unauthenticated_access @ GET /api/v3/hotels/{id}",
+     "cross_tenant_read @ GET /api/v3/hotels/{id}"
+    ],
+    "precision": 0.625
+   }
+  }
+ ]
+}

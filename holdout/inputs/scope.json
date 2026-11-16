@@ -1,0 +1,1 @@
+{"allowed_origins": ["http://127.0.0.1:8300"], "max_rps": 400, "max_requests_per_cycle": 20000, "traffic_window_days": 90}

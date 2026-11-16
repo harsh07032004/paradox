@@ -1,0 +1,8 @@
+{
+  "engagement": "Waypoint B2B staging (synthetic sandbox)",
+  "allowed_origins": ["http://127.0.0.1:8100"],
+  "max_rps": 40,
+  "max_requests_per_cycle": 8000,
+  "traffic_window_days": 90,
+  "notes": "Control plane (:8101) is out of scope. Only test accounts in accounts.json may be used."
+}

@@ -1,0 +1,8 @@
+{"note": "Synthetic test accounts issued for the engagement (two agencies, two roles each).",
+ "accounts": [
+  {"username": "goa.admin",   "password": "Sandbox#Goa1", "tenant": "AG100", "role": "agency_admin", "privilege": 2},
+  {"username": "goa.sub",     "password": "Sandbox#Goa2", "tenant": "AG100", "role": "sub_agent",    "privilege": 1},
+  {"username": "delhi.admin", "password": "Sandbox#Del1", "tenant": "AG200", "role": "agency_admin", "privilege": 2},
+  {"username": "delhi.sub",   "password": "Sandbox#Del2", "tenant": "AG200", "role": "sub_agent",    "privilege": 1},
+  {"username": "ops.root",    "password": "Sandbox#Ops9", "tenant": "TBO-OPS", "role": "ops_admin",  "privilege": 9, "requires_approval": true}
+ ]}

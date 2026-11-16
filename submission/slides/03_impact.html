@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=block');
+:root{--navy:#0B2350;--blue:#226ECA;--blue2:#1C4D91;--sky:#EAF2FC;--yellow:#FDD649;--ink:#0F1B2D;--text:#33415A;--muted:#6B7A93;--line:#E1E8F3;--green:#1E8A5A}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:Inter,sans-serif;color:var(--text);background:#fff;position:relative}
+h1,h2,h3,.h{font-family:Montserrat,sans-serif;color:var(--ink)}
+.pad{position:absolute;inset:0;padding:96px 120px}
+.eyebrow{font:700 22px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--blue)}
+.foot{position:absolute;left:120px;right:120px;bottom:52px;display:flex;justify-content:space-between;font:500 19px Inter;color:#9AA6BA}
+.foot b{color:var(--blue);font-weight:700}
+.hl{background:linear-gradient(transparent 58%,var(--yellow) 58%);padding:0 6px}
+
+.cmp{margin-top:56px;max-width:1680px}
+.lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.lbl b{font:800 32px Montserrat;color:var(--ink)}
+.lbl span{font:600 26px Inter;color:var(--text)}
+.track{height:46px;border-radius:12px;background:#F0F4FA;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:12px}
+.fill.grey{background:#B7C2D3}
+.note{font:500 22px Inter;color:var(--muted);margin-top:20px}
+.three{position:absolute;left:120px;right:120px;bottom:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:56px}
+.three h3{font:800 30px Montserrat;margin-bottom:16px;padding-top:22px;border-top:6px solid var(--yellow)}
+.three p{font:400 23px/1.5 Inter;color:var(--text);margin-bottom:14px}
+</style></head><body>
+<div class="pad">
+  <div class="eyebrow">Impact &nbsp;·&nbsp; Feasibility &nbsp;·&nbsp; Adoption risk</div>
+  <h1 style="font:800 62px/1.12 Montserrat;margin-top:22px;max-width:1700px">It already works, including on a platform it has never seen.</h1>
+  <div class="cmp">
+    <div class="lbl"><b>Paradox</b><span>172 of 172 planted bugs found · 0 false alarms</span></div>
+    <div class="track"><div class="fill" style="width:100.0%"></div></div>
+    <div class="lbl" style="margin-top:34px"><b style="color:var(--muted)">Signature scanner, same inputs</b><span>51 of 172 found · 66 false alarms</span></div>
+    <div class="track"><div class="fill grey" style="width:29.7%"></div></div>
+    <p class="note">22 test runs, each with bugs picked at random that Paradox had never seen. The scanner caught none of the money, cross-agency or permission bugs.</p>
+  </div>
+  <div class="three">
+    <div><h3>Impact for TBO</h3>
+      <p>Finds the flaws that cost money: double refunds, client-set fares, refunds above payment. Each comes with its loss in ₹, so fixes are ordered by money at risk.</p>
+      <p>On an unseen airline platform: 5 of 7 at first contact, 7 of 7 after two general fixes, 0 false alarms.</p></div>
+    <div><h3>Feasible today</h3>
+      <p>Working prototype in Python. It uses exactly the inputs TBO provides: the staging URL, test accounts, recorded traffic, gateway logs and deploy events.</p>
+      <p>A new deploy is tested first. Fixed tickets close themselves when the proof stops working.</p></div>
+    <div><h3>Adoption risk, handled</h3>
+      <p>Safe by construction: scope allowlist, touches only data it created, rate cap with back-off, kill switch, full audit log.</p>
+      <p>Policy questions go to a person, never auto-filed. No AI model in the decision path, so no per-scan cost and no data leaves TBO.</p></div>
+  </div>
+</div></body></html>

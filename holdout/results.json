@@ -1,0 +1,144 @@
+[
+ {
+  "label": "all-bugs",
+  "seconds": 5.1,
+  "requests": 2260,
+  "detected": {
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S4": true,
+   "S5": true,
+   "S6": true,
+   "S7": true
+  },
+  "recall": 1.0,
+  "findings": [
+   "money_created @ POST /v2/pnrs/{id}/void [VOIDED]",
+   "underpayment @ POST /v2/pnrs/{id}/ticket [fare]",
+   "cross_tenant_read @ GET /v1/pnrs/{id} []",
+   "cross_tenant_read @ GET /v2/pnrs/{id} []",
+   "cross_tenant_read @ GET /v2/pnrs/{id}/eticket []",
+   "unauthenticated_access @ GET /v2/pnrs/{id}/eticket []",
+   "pii_exposure @ GET /v1/pnrs/{id} [passport]",
+   "invalid_quantity @ POST /v2/pnrs/{id}/ancillaries [count]",
+   "one_time_reuse @ POST /v2/pnrs [promo]"
+  ],
+  "false_positives": [],
+  "learned": {
+   "auth": {
+    "header": "X-Session",
+    "prefix": ""
+   },
+   "login": {
+    "template": "/v2/session",
+    "user_field": "login",
+    "pass_field": "secret",
+    "token_field": "session"
+   },
+   "status_field": "state",
+   "status_values": [
+    "ON_HOLD",
+    "TICKETED",
+    "VOIDED"
+   ],
+   "ledger": {
+    "endpoint": "GET /v2/credit",
+    "field": "available"
+   },
+   "masked": [
+    "passport_no"
+   ],
+   "object_types": {
+    "POST /v2/pnrs#pnr": {
+     "observer": "GET /v2/pnrs/{id}",
+     "release": "POST /v2/pnrs/{id}/void",
+     "settle": "POST /v2/pnrs/{id}/ticket"
+    }
+   },
+   "one_time": [
+    [
+     "POST /v2/pnrs",
+     "promo",
+     "FIRSTFLY"
+    ]
+   ],
+   "inventory": {
+    "GET /v1/pnrs/{id}": "zombie",
+    "GET /v2/credit": "active",
+    "GET /v2/flights": "active",
+    "PUT /v2/org/limits": "dormant",
+    "GET /v2/org/limits": "active",
+    "POST /v2/pnrs": "active",
+    "GET /v2/pnrs/{id}": "active",
+    "POST /v2/pnrs/{id}/ancillaries": "active",
+    "GET /v2/pnrs/{id}/eticket": "active",
+    "POST /v2/pnrs/{id}/ticket": "active",
+    "POST /v2/pnrs/{id}/void": "active",
+    "POST /v2/session": "dormant"
+   }
+  }
+ },
+ {
+  "label": "clean",
+  "seconds": 2.2,
+  "requests": 1210,
+  "detected": {},
+  "recall": 1.0,
+  "findings": [],
+  "false_positives": [],
+  "learned": {
+   "auth": {
+    "header": "X-Session",
+    "prefix": ""
+   },
+   "login": {
+    "template": "/v2/session",
+    "user_field": "login",
+    "pass_field": "secret",
+    "token_field": "session"
+   },
+   "status_field": "state",
+   "status_values": [
+    "ON_HOLD",
+    "TICKETED",
+    "VOIDED"
+   ],
+   "ledger": {
+    "endpoint": "GET /v2/credit",
+    "field": "available"
+   },
+   "masked": [
+    "passport_no"
+   ],
+   "object_types": {
+    "POST /v2/pnrs#pnr": {
+     "observer": "GET /v2/pnrs/{id}",
+     "release": "POST /v2/pnrs/{id}/void",
+     "settle": "POST /v2/pnrs/{id}/ticket"
+    }
+   },
+   "one_time": [
+    [
+     "POST /v2/pnrs",
+     "promo",
+     "FIRSTFLY"
+    ]
+   ],
+   "inventory": {
+    "GET /v1/pnrs/{id}": "unknown",
+    "GET /v2/credit": "active",
+    "GET /v2/flights": "active",
+    "PUT /v2/org/limits": "dormant",
+    "GET /v2/org/limits": "active",
+    "POST /v2/pnrs": "active",
+    "GET /v2/pnrs/{id}": "active",
+    "POST /v2/pnrs/{id}/ancillaries": "active",
+    "GET /v2/pnrs/{id}/eticket": "active",
+    "POST /v2/pnrs/{id}/ticket": "active",
+    "POST /v2/pnrs/{id}/void": "active",
+    "POST /v2/session": "dormant"
+   }
+  }
+ }
+]

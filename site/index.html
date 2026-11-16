@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paradox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2350; --navy2:#12346F; --blue:#226ECA; --blue2:#1C4D91; --sky:#EAF2FC; --sky2:#F4F8FE;
+  --yellow:#FDD649; --yellow2:#FFF4C7; --ink:#0F1B2D; --text:#24324A; --muted:#61708A; --faint:#8D99AE;
+  --line:#E3E9F3; --bg:#F5F8FD; --card:#FFFFFF; --red:#C93B3B; --redbg:#FDECEC; --green:#1E8A5A; --greenbg:#E6F5EE;
+  --head:"Montserrat",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+button{font:600 14px var(--body);cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px}
+button:hover{border-color:#c9d4e6}
+button:disabled{opacity:.45;cursor:not-allowed}
+a{color:var(--blue)}
+
+/* top bar */
+.bar{background:var(--navy);color:#fff}
+.bar .in{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;color:var(--navy);font:800 15px var(--head)}
+.word{font:800 19px var(--head);letter-spacing:.2px}
+.status{display:flex;align-items:center;gap:8px;color:#C9D6EE;font-size:14px;margin-left:10px;min-width:0}
+.status span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:8px;height:8px;border-radius:50%;background:#58D39A;box-shadow:0 0 0 4px rgba(88,211,154,.18);flex:none}
+.dot.busy{background:var(--yellow);box-shadow:0 0 0 4px rgba(253,214,73,.2);animation:pulse 1.2s infinite}
+.dot.off{background:#FF7A7A;box-shadow:0 0 0 4px rgba(255,122,122,.2)}
+@keyframes pulse{50%{opacity:.35}}
+.grow{flex:1}
+.bar button{background:transparent;color:#fff;border-color:rgba(255,255,255,.22)}
+.bar button:hover{border-color:rgba(255,255,255,.5)}
+.bar button.kill{border-color:rgba(255,122,122,.55);color:#FFD1D1}
+.bar button.kill.on{background:#FF7A7A;color:var(--navy);border-color:#FF7A7A}
+.replay{background:var(--yellow);color:var(--navy);font-size:13.5px}
+.replay .in{max-width:1180px;margin:0 auto;padding:9px 24px;display:flex;gap:14px;align-items:center}
+.replay #replaymeta{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
+.replay .ctl{display:flex;gap:6px;align-items:center;flex:none}
+.replay button{padding:4px 10px;font-size:12.5px;border-color:rgba(11,35,80,.25);background:transparent;color:var(--navy)}
+.replay button.on{background:var(--navy);color:#fff}
+
+main{max-width:1180px;margin:0 auto;padding:28px 24px 64px}
+.eyebrow{font:700 12px var(--head);letter-spacing:1.4px;text-transform:uppercase;color:var(--blue)}
+.summary{color:var(--muted);font-size:14.5px;margin:6px 0 18px}
+.summary b{color:var(--ink)}
+
+/* hero */
+.hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 32px;box-shadow:0 1px 0 rgba(15,27,45,.02),0 12px 32px -20px rgba(11,35,80,.25)}
+.hero.fixed{border-color:#CDEBDC}
+.hero h1{font:800 30px/1.22 var(--head);color:var(--ink);margin:10px 0 14px;letter-spacing:-.2px;max-width:900px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:600 12.5px var(--body);padding:4px 10px;border-radius:99px;background:var(--sky);color:var(--blue2)}
+.chip.sev-Critical{background:var(--redbg);color:var(--red)}
+.chip.sev-High{background:#FFF0E0;color:#B45B0A}
+.chip.sev-Medium{background:var(--yellow2);color:#7A5A00}
+.chip.fixed{background:var(--greenbg);color:var(--green)}
+.chip.money{background:var(--yellow);color:var(--navy);font-weight:700}
+.chip.plain{background:#fff;border:1px solid var(--line);color:var(--muted)}
+.why{margin:18px 0 0;padding:14px 16px;border-radius:12px;background:var(--sky2);border-left:4px solid var(--blue);color:var(--text)}
+.why b{color:var(--ink)}
+
+/* proof strip */
+.proof{margin-top:22px}
+.proof h3,.section h2{font:700 15px var(--head);color:var(--ink);margin:0 0 12px}
+.steps{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(170px,250px);justify-content:start;gap:10px;overflow-x:auto;padding:12px 2px 6px}
+.step{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px 13px;background:#fff;min-width:0}
+.step.changed{border-color:#F1CE45;background:var(--yellow2)}
+.step .who{font-size:12px;color:var(--faint)}
+.step .act{font:700 15px var(--head);color:var(--ink);margin:3px 0 2px;text-transform:capitalize}
+.step .code{font:12px var(--mono);color:var(--muted)}
+.step .bal{margin-top:8px;font:600 13px var(--mono);color:var(--ink)}
+.step .bal.up{color:var(--green)}
+.step .bal.down{color:var(--muted)}
+.step .tag{position:absolute;top:-9px;right:10px;font:700 10.5px var(--body);background:var(--navy);color:var(--yellow);padding:2px 8px;border-radius:99px}
+.outcome{margin-top:14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:14.5px}
+.outcome strong{font:800 22px var(--head);color:var(--ink)}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.actions .primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.actions .primary:hover{background:var(--blue2)}
+.fix{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;border:1px dashed #BFD3F0;background:#fff}
+.fix.show{display:block}
+
+/* lower */
+.cols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;margin-top:26px}
+.section{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 8px;min-width:0}
+.item{display:flex;gap:12px;padding:12px 4px;border-top:1px solid var(--line);cursor:pointer;align-items:flex-start}
+.item:first-of-type{border-top:0}
+.item:hover .t{color:var(--blue)}
+.item.active .t{color:var(--blue)}
+.item .bar2{width:4px;align-self:stretch;border-radius:4px;background:var(--line);flex:none}
+.item .bar2.Critical{background:var(--red)}.item .bar2.High{background:#E58A2E}.item .bar2.Medium{background:var(--yellow)}.item .bar2.fixed{background:var(--green)}
+.item .t{font-weight:600;color:var(--ink);line-height:1.4}
+.item .s{font-size:12.5px;color:var(--faint);margin-top:3px}
+.feed{max-height:430px;overflow:auto;margin:0 -6px;padding:0 6px}
+.ev{padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px}
+.ev:first-child{border-top:0}
+.ev time{color:var(--faint);font:12px var(--mono);padding-top:2px}
+.ev.finding span{color:var(--ink);font-weight:600}
+.ev.resolved span{color:var(--green);font-weight:600}
+.ev.deploy span,.ev.change span{color:var(--blue2);font-weight:600}
+.ev.safety span{color:var(--red)}
+.empty{color:var(--faint);padding:14px 2px 18px}
+
+.tabs{display:flex;gap:6px;margin:30px 0 14px;flex-wrap:wrap}
+.tabs button{border-radius:99px;padding:7px 14px;font-weight:600;color:var(--muted)}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 10px;border-top:1px solid var(--line);vertical-align:top}
+th{font:600 12px var(--body);color:var(--faint);border-top:0;text-transform:uppercase;letter-spacing:.6px}
+td.m{font-family:var(--mono);font-size:12.5px;color:var(--ink);overflow-wrap:anywhere}
+.lab{font:700 11.5px var(--body);padding:3px 9px;border-radius:99px;background:var(--sky);color:var(--blue2);white-space:nowrap}
+.lab.zombie{background:var(--redbg);color:var(--red)}.lab.shadow{background:#FFF0E0;color:#B45B0A}
+.lab.retired{background:#EEF1F6;color:var(--faint)}.lab.new{background:var(--yellow);color:var(--navy)}
+.q{padding:14px 2px;border-top:1px solid var(--line)}
+.q:first-child{border-top:0}
+.q .ep{font:12.5px var(--mono);color:var(--muted)}
+.q p{margin:4px 0 0;color:var(--ink)}
+
+/* drawer */
+.drawer{position:fixed;inset:0;background:rgba(11,35,80,.35);display:none;z-index:20}
+.drawer.show{display:block}
+.drawer .panel{position:absolute;right:0;top:0;bottom:0;width:min(760px,100%);background:#fff;overflow:auto;padding:28px 32px;box-shadow:-20px 0 40px -20px rgba(11,35,80,.4)}
+.md h1{font:800 22px var(--head);color:var(--ink);margin:4px 0 12px}
+.md h2{font:700 15px var(--head);color:var(--ink);margin:22px 0 8px}
+.md pre{font:12px/1.55 var(--mono);background:var(--sky2);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+.md code{font:12.5px var(--mono);background:var(--sky2);padding:1px 5px;border-radius:5px}
+.md table{margin:8px 0}
+.close{float:right}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;display:none;z-index:30}
+
+@media (max-width:900px){.cols{grid-template-columns:1fr}.hero{padding:22px 20px}.hero h1{font-size:23px}}
+@media (max-width:760px){.replay #replaymeta{display:none}.replay .in{flex-wrap:wrap;padding:8px 16px}.replay .ctl>span{display:none}}
+@media (max-width:560px){main{padding:18px 16px 48px}.bar .in{padding:12px 16px;flex-wrap:wrap}.status{margin-left:0;order:3;width:100%}.steps{grid-auto-columns:minmax(150px,78%)}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+  <div class="mark">P</div><div class="word">Paradox</div>
+  <div class="status"><span class="dot" id="dot"></span><span id="status">Connecting…</span></div>
+  <div class="grow"></div>
+  <button id="run">Run full check</button>
+  <button id="kill" class="kill">Kill switch</button>
+</div></div>
+<div class="replay" id="replaybar" hidden><div class="in">
+  <b style="flex:none">Replay of a recorded run</b><span id="replaymeta"></span>
+  <span class="ctl"><span>Speed</span><button data-speed="1">1×</button><button data-speed="4" class="on">4×</button><button data-speed="16">16×</button><button id="restart">Restart</button></span>
+</div></div>
+
+<main>
+  <div class="eyebrow" id="eyebrow">Most urgent</div>
+  <div class="summary" id="summary">Paradox is learning the platform. Nothing to show yet.</div>
+  <div id="hero"></div>
+
+  <div class="cols">
+    <div class="section"><h2 id="listtitle">Other open issues</h2><div id="list"></div></div>
+    <div class="section"><h2>What the agent is doing</h2><div class="feed" id="feed"></div></div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-tab="inv" class="on">Endpoints it found</button>
+    <button data-tab="review">Needs your decision <span id="rc"></span></button>
+    <button data-tab="fixed">Fixed and verified <span id="fc"></span></button>
+  </div>
+  <div class="section" id="tabbody"></div>
+</main>
+
+<div class="drawer" id="drawer"><div class="panel"><button class="close" onclick="closeDrawer()">Close</button><div class="md" id="md"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr = n => '₹' + Number(Math.abs(n || 0)).toLocaleString('en-IN', {maximumFractionDigits: 0});
+const SEV = {Critical: 0, High: 1, Medium: 2, Low: 3};
+let S = null, focus = null, pinned = false, tab = 'inv', MODE = 'live', R = null;
+
+/* ---------------- data sources ---------------- */
+const live = {
+  state: () => fetch('/api/state').then(r => { if (!r.ok) throw 0; return r.json(); }),
+  ticket: id => fetch('/api/tickets/' + id).then(r => r.text()),
+  events: cb => { const es = new EventSource('/api/events'); es.onmessage = m => cb(JSON.parse(m.data)); },
+};
+const replay = {
+  speed: 4, i: 0, timer: null, t0: 0,
+  state: async () => R.cur,
+  ticket: async id => R.tickets[id] || 'Ticket not in recording.',
+  events: cb => { replay.cb = cb; replay.start(); },
+  start() {
+    clearTimeout(this.timer); this.i = 0; R.cur = R.frames.find(f => f.state).state; S = R.cur; $('#feed').innerHTML = ''; this.tick();
+  },
+  tick() {
+    const f = R.frames[this.i]; if (!f) { $('#status').textContent = 'Replay finished · press Restart'; return; }
+    if (f.state) R.cur = f.state;
+    S = R.cur;
+    if (f.event) this.cb(f.event);
+    render();
+    const next = R.frames[this.i + 1];
+    this.i++;
+    if (next) this.timer = setTimeout(() => this.tick(), Math.min(4000, Math.max(30, (next.t - f.t) * 1000 / this.speed)));
+  },
+};
+let src = live;
+
+/* ---------------- rendering ---------------- */
+function open() { return (S?.findings || []).filter(f => f.status === 'open').sort((a, b) => SEV[a.severity] - SEV[b.severity] || (b.amount || 0) - (a.amount || 0) || b.score - a.score); }
+function fixed() { return (S?.findings || []).filter(f => f.status !== 'open'); }
+
+function render() {
+  if (!S) return;
+  const op = open(), fx = fixed(), m = S.metrics || {};
+  // status line
+  const busy = S.running, killed = m.killed;
+  $('#dot').className = 'dot' + (killed ? ' off' : busy ? ' busy' : '');
+  if (MODE === 'live' || !$('#status').textContent.startsWith('Replay finished'))
+    $('#status').textContent = killed ? 'Stopped by kill switch' : busy ? `Checking release ${S.release}…` : `Watching release ${S.release}`;
+  $('#kill').classList.toggle('on', !!killed);
+  $('#kill').textContent = killed ? 'Release kill switch' : 'Kill switch';
+  const money = op.filter(f => ['money_created', 'underpayment', 'one_time_reuse'].includes(f.kind)).reduce((a, f) => a + (f.amount || 0), 0);
+  $('#summary').innerHTML = op.length
+    ? `<b>${op.length} open</b> issue${op.length > 1 ? 's' : ''}${money ? `, <b>${inr(money)}</b> measured loss per exploit run` : ''}. ${fx.length ? `${fx.length} fixed and re-verified. ` : ''}${m.suppressed || 0} unconfirmed signals were dropped instead of reported.`
+    : (fx.length ? `<b>No open issues.</b> ${fx.length} fixed and re-verified.` : 'Paradox is learning the platform. Nothing to show yet.');
+  // focus
+  if (!pinned || !(S.findings || []).some(f => f.id === focus)) { focus = op[0]?.id || fx[0]?.id || null; pinned = false; }
+  const f = (S.findings || []).find(x => x.id === focus);
+  $('#eyebrow').textContent = !f ? 'Waiting' : f.status === 'open' ? (f.id === op[0]?.id ? 'Most urgent' : 'Selected issue') : 'Fixed and verified';
+  $('#hero').innerHTML = f ? hero(f) : `<div class="hero"><h1>Learning the platform from its own traffic.</h1><div class="why">Paradox reads the front-end bundle, recorded journeys and 90 days of gateway logs, finds the money by experiment, then starts testing. Verified issues appear here, most urgent first.</div></div>`;
+  // list
+  const rest = op.filter(x => x.id !== focus);
+  $('#listtitle').textContent = f && f.status !== 'open' ? 'Open issues' : 'Other open issues';
+  $('#list').innerHTML = (f && f.status !== 'open' ? op : rest).map(x => item(x)).join('') || '<div class="empty">None.</div>';
+  // tabs
+  $('#rc').textContent = (S.review || []).length ? `· ${(S.review || []).length}` : '';
+  $('#fc').textContent = fx.length ? `· ${fx.length}` : '';
+  tabBody();
+  document.querySelectorAll('[data-id]').forEach(el => el.onclick = () => { focus = el.dataset.id; pinned = true; render(); window.scrollTo({top: 0, behavior: 'smooth'}); });
+}
+
+function item(x) {
+  const isFixed = x.status !== 'open';
+  return `<div class="item ${x.id === focus ? 'active' : ''}" data-id="${x.id}"><span class="bar2 ${isFixed ? 'fixed' : x.severity}"></span>
+    <div><div class="t">${esc(x.headline || x.title)}</div><div class="s">${isFixed ? 'Fixed' : x.severity} · ${x.amount ? inr(x.amount) + ' · ' : ''}${esc(x.owner.team)} · ${esc(x.id)}</div></div></div>`;
+}
+
+function hero(f) {
+  const ev = (f.evidence || []).filter(e => e.request);
+  const led = (f.evidence || []).find(e => e.ledger_before);
+  let prev = led ? Object.values(led.ledger_before)[0] : null;
+  const steps = ev.map(e => {
+    const path = e.request.split(' ')[1].split('?')[0];
+    const parts = path.split('/').filter(Boolean);
+    const isId = s => /\d/.test(s) && !/^v\d+$/.test(s) || /^[A-Z]{5,}$/.test(s);
+    const last = parts[parts.length - 1] || path;
+    const act = isId(last) ? 'open ' + (parts[parts.length - 2] || 'record').replace(/s$/, '') : last;
+    let bal = '';
+    if (e.ledger) {
+      const v = Object.values(e.ledger)[0];
+      if (v != null && prev != null) { const d = v - prev; bal = `<div class="bal ${d > 0.5 ? 'up' : 'down'}">${d > 0.5 ? '+' : d < -0.5 ? '−' : ''}${Math.abs(d) > 0.5 ? inr(d) : 'no change'}</div>`; }
+      prev = v;
+    }
+    return `<div class="step ${e.modified ? 'changed' : ''}">${e.modified ? '<span class="tag">changed by Paradox</span>' : ''}
+      <div class="who">${esc(e.actor === 'anonymous' ? 'no login' : e.actor)}</div><div class="act">${esc(act)}</div>
+      <div class="code">${esc(e.request.split(' ')[0])} · ${e.status}</div>${bal}</div>`;
+  }).join('');
+  const net = led ? Object.keys(led.ledger_before).map(k => led.ledger_after[k] - led.ledger_before[k]) : [];
+  const netTxt = net.length && Math.abs(net[0]) > 0.5 ? `<div class="outcome"><span>Net effect on the agency's balance</span><strong style="color:${net[0] > 0 ? 'var(--green)' : 'var(--ink)'}">${net[0] > 0 ? '+' : '−'}${inr(net[0])}</strong></div>` : '';
+  const isFixed = f.status !== 'open';
+  const hist = (f.history || []).map(h => `${esc(h.event)} on ${esc(h.release)}`).join(' → ');
+  return `<div class="hero ${isFixed ? 'fixed' : ''}">
+    <div class="meta">
+      ${isFixed ? '<span class="chip fixed">Fixed and re-verified</span>' : `<span class="chip sev-${f.severity}">${f.severity}</span>`}
+      ${f.amount ? `<span class="chip money">${inr(f.amount)} per exploit run</span>` : ''}
+      <span class="chip">${esc(f.owner.team)}</span>
+      ${f.ttf_s != null ? `<span class="chip plain">verified ${f.ttf_s}s after the change</span>` : ''}
+      <span class="chip plain">reproduced 3 of 3</span>
+    </div>
+    <h1>${esc(f.headline || f.title)}</h1>
+    <div class="why"><b>Rule broken:</b> ${esc(f.reasons[0] || '')}${f.reasons.length > 1 ? '<br>' + f.reasons.slice(1).map(esc).join(' ') : ''}</div>
+    ${ev.length ? `<div class="proof"><h3>How it happens · ${ev.length === 1 ? 'the one request that matters' : `the ${ev.length} requests that matter`}</h3><div class="steps">${steps}</div>${netTxt}</div>` : ''}
+    <div class="actions">
+      <button class="primary" onclick="openTicket('${f.id}')">Open ticket</button>
+      <button onclick="copyRepro('${f.id}')">Copy reproduction</button>
+      <button onclick="document.getElementById('fix-${f.id}').classList.toggle('show')">Suggested fix</button>
+    </div>
+    <div class="fix" id="fix-${f.id}"><b>Suggested fix.</b> <span id="fixtext-${f.id}">Open the ticket for the full fix and owner details.</span></div>
+    <div class="s" style="margin-top:14px;color:var(--faint);font-size:12.5px">${esc(f.id)} · <span style="font-family:var(--mono)">${esc(f.endpoint)}</span> · ${hist}</div>
+  </div>`;
+}
+
+function tabBody() {
+  const b = $('#tabbody');
+  if (tab === 'inv') {
+    const rows = (S.inventory || []).slice().sort((a, b) => ['zombie','shadow','new','retired','dormant','active'].indexOf(a.label) - ['zombie','shadow','new','retired','dormant','active'].indexOf(b.label));
+    b.innerHTML = rows.length ? `<div style="overflow:auto"><table><thead><tr><th>Endpoint</th><th>Status</th><th>Calls (90d)</th><th>Last used</th><th>What to do</th></tr></thead><tbody>${rows.map(r => `<tr><td class="m">${esc(r.endpoint)}</td><td><span class="lab ${r.label}">${r.label}</span></td><td>${(r.hits_90d || 0).toLocaleString()}</td><td>${r.last_seen_days != null ? r.last_seen_days + ' days ago' : 'never'}</td><td style="color:var(--muted)">${esc(r.recommendation)}</td></tr>`).join('')}</tbody></table></div><p style="color:var(--faint);font-size:12.5px">Built from the bundle, recorded traffic and probing, with no spec. <a href="${MODE === 'live' ? '/api/openapi.json' : 'openapi.json'}" target="_blank">Generated OpenAPI spec</a></p>` : '<div class="empty">Inventory appears after the first learning pass.</div>';
+  } else if (tab === 'review') {
+    b.innerHTML = (S.review || []).length ? S.review.map(r => `<div class="q"><div class="ep">${esc(r.endpoint)}</div><p>${esc(r.question)}</p></div>`).join('') + '<p style="color:var(--faint);font-size:12.5px">These depend on business policy, so Paradox asks instead of filing.</p>' : '<div class="empty">Nothing needs your decision.</div>';
+  } else {
+    const fx = fixed();
+    b.innerHTML = fx.length ? fx.map(item).join('') : '<div class="empty">Fixed issues appear here once a deploy makes their proof stop working.</div>';
+    b.querySelectorAll('[data-id]').forEach(el => el.onclick = () => { focus = el.dataset.id; pinned = true; render(); window.scrollTo({top: 0, behavior: 'smooth'}); });
+  }
+}
+
+function feed(e) {
+  if (['progress', 'signal', 'noise', 'plan'].includes(e.kind)) return;
+  const el = document.createElement('div');
+  el.className = 'ev ' + e.kind;
+  el.innerHTML = `<time>${new Date(e.ts * 1000).toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit', second: '2-digit'})}</time><span>${esc(e.msg)}</span>`;
+  $('#feed').prepend(el);
+  while ($('#feed').children.length > 120) $('#feed').lastChild.remove();
+}
+
+/* ---------------- tickets & repro ---------------- */
+function md(t) {
+  const lines = t.split('\n'); let out = '', inCode = false, table = [];
+  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i style="color:var(--muted)">$1</i>').replace(/`([^`]+)`/g, '<code>$1</code>');
+  const flush = () => { if (table.length) { const rows = table.filter(r => !/^\|[\s|:-]+\|$/.test(r)).map(r => r.split('|').slice(1, -1));
+    out += '<table><thead><tr>' + rows[0].map(c => `<th>${inline(c.trim())}</th>`).join('') + '</tr></thead><tbody>' + rows.slice(1).map(r => '<tr>' + r.map(c => `<td>${inline(c.trim())}</td>`).join('') + '</tr>').join('') + '</tbody></table>'; table = []; } };
+  for (const l of lines) {
+    if (l.startsWith('```')) { flush(); out += inCode ? '</pre>' : '<pre>'; inCode = !inCode; continue; }
+    if (inCode) { out += esc(l) + '\n'; continue; }
+    if (l.startsWith('|')) { table.push(l); continue; } else flush();
+    if (l.startsWith('# ')) out += `<h1>${inline(l.slice(2))}</h1>`;
+    else if (l.startsWith('## ')) out += `<h2>${inline(l.slice(3))}</h2>`;
+    else if (l.startsWith('- ')) out += `<div>• ${inline(l.slice(2))}</div>`;
+    else if (l.trim()) out += `<p>${inline(l)}</p>`;
+  }
+  flush(); return out;
+}
+async function openTicket(id) { $('#md').innerHTML = md(await src.ticket(id)); $('#drawer').classList.add('show'); }
+function closeDrawer() { $('#drawer').classList.remove('show'); }
+$('#drawer').onclick = e => { if (e.target.id === 'drawer') closeDrawer(); };
+async function copyRepro(id) {
+  const t = await src.ticket(id); const m = t.match(/```bash\n([\s\S]*?)```/);
+  try { await navigator.clipboard.writeText(m ? m[1] : t); toast('Reproduction copied (curl commands)'); } catch { openTicket(id); }
+}
+function toast(msg) { const el = $('#toast'); el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 2200); }
+// fix text from the ticket, loaded lazily when a hero renders
+const fixCache = {};
+new MutationObserver(async () => {
+  for (const el of document.querySelectorAll('[id^="fixtext-"]')) {
+    const id = el.id.slice(8);
+    if (!fixCache[id]) { const t = await src.ticket(id); const m = t.match(/## Suggested fix\n([\s\S]*?)\n\n/); fixCache[id] = m ? m[1] : el.textContent; }
+    if (el.textContent !== fixCache[id]) el.textContent = fixCache[id];
+  }
+}).observe($('#hero'), {childList: true});
+
+/* ---------------- controls ---------------- */
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { tab = b.dataset.tab; document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === b)); tabBody(); });
+$('#run').onclick = () => MODE === 'live' && fetch('/api/run', {method: 'POST'});
+$('#kill').onclick = () => MODE === 'live' && fetch('/api/kill', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({on: !(S && S.metrics.killed)})}).then(refresh);
+document.querySelectorAll('[data-speed]').forEach(b => b.onclick = () => { replay.speed = +b.dataset.speed; document.querySelectorAll('[data-speed]').forEach(x => x.classList.toggle('on', x === b)); });
+$('#restart').onclick = () => { focus = null; pinned = false; replay.start(); };
+
+let pending = null;
+async function refresh() { S = await src.state(); render(); }
+(async function boot() {
+  try { S = await live.state(); }
+  catch {
+    MODE = 'replay'; src = replay;
+    R = await fetch('replay.json').then(r => r.json());
+    if (new URLSearchParams(location.search).has('fast')) replay.speed = 1e6;
+    $('#replaybar').hidden = false;
+    $('#replaymeta').textContent = R.meta.description;
+    $('#run').disabled = $('#kill').disabled = true;
+    $('#run').title = $('#kill').title = 'Available when running Paradox locally';
+  }
+  src.events(e => { feed(e); if (MODE === 'live') { clearTimeout(pending); pending = setTimeout(refresh, 200); } });
+  if (MODE === 'live') { render(); setInterval(refresh, 5000); }
+})();
+</script>
+</body>
+</html>

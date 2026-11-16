@@ -1,0 +1,1215 @@
+{
+ "note": "Synthetic recorded journeys (Waypoint B2B sandbox)",
+ "sessions": [
+  {
+   "journey": "search-quote-book-pay-docs",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "goa.sub",
+      "password": "Sandbox#Goa2"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462",
+      "user_id": "U2",
+      "role": "sub_agent",
+      "agency_id": "AG100"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/hotels/search",
+     "query": "city=Goa",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "results": [
+       {
+        "hotel_id": "H101",
+        "name": "Sea Breeze Resort",
+        "city": "Goa",
+        "stars": 4,
+        "rooms": [
+         {
+          "room_code": "DLX",
+          "name": "Deluxe Sea View",
+          "rate": 6200,
+          "refundable": true
+         },
+         {
+          "room_code": "STD",
+          "name": "Standard",
+          "rate": 4100,
+          "refundable": false
+         }
+        ]
+       },
+       {
+        "hotel_id": "H102",
+        "name": "Palm Grove Inn",
+        "city": "Goa",
+        "stars": 3,
+        "rooms": [
+         {
+          "room_code": "STD",
+          "name": "Standard Double",
+          "rate": 2900,
+          "refundable": true
+         }
+        ]
+       }
+      ],
+      "count": 2
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/hotels/H101",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "hotel_id": "H101",
+      "name": "Sea Breeze Resort",
+      "city": "Goa",
+      "stars": 4,
+      "rooms": [
+       {
+        "room_code": "DLX",
+        "name": "Deluxe Sea View",
+        "rate": 6200,
+        "refundable": true,
+        "cancel_fee_pct": 0
+       },
+       {
+        "room_code": "STD",
+        "name": "Standard",
+        "rate": 4100,
+        "refundable": false,
+        "cancel_fee_pct": 100
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": {
+      "hotel_id": "H101",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "coupon": null
+     },
+     "status": 200,
+     "response_body": {
+      "quote_id": "Q10001",
+      "hotel_id": "H101",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "gross": 20088.0,
+      "discount": 0.0,
+      "total": 20088.0,
+      "currency": "INR",
+      "expires_in": 900
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": {
+      "quote_id": "Q10001",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z4829173"
+       }
+      ],
+      "contact_email": "goa.sub@agency.example"
+     },
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10002",
+      "agency_id": "AG100",
+      "status": "HELD",
+      "hotel_id": "H101",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "amount": 20088.0,
+      "currency": "INR",
+      "contact_email": "goa.sub@agency.example",
+      "created_by": "U2",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z*****73"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings/WB10002/pay",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10002",
+      "status": "CONFIRMED",
+      "charged": 20088.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings/WB10002",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10002",
+      "agency_id": "AG100",
+      "status": "CONFIRMED",
+      "hotel_id": "H101",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "amount": 20088.0,
+      "currency": "INR",
+      "contact_email": "goa.sub@agency.example",
+      "created_by": "U2",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z*****73"
+       }
+      ]
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings/WB10002/voucher",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "voucher_no": "V-WB10002",
+      "booking_id": "WB10002",
+      "hotel": "Sea Breeze Resort",
+      "city": "Goa",
+      "status": "CONFIRMED",
+      "lead_guest": "Ananya Rao",
+      "contact_email": "goa.sub@agency.example",
+      "nights": 3
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/invoices/WB10002",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "invoice_no": "INV-WB10002",
+      "booking_id": "WB10002",
+      "agency_id": "AG100",
+      "billed_to": "Goa Getaways",
+      "gstin": "30ABCDE1234F1Z5",
+      "amount": 20088.0,
+      "paid": 20088.0,
+      "refunded": 0.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/wallet",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "balance": 479912.0,
+      "currency": "INR",
+      "recent": [
+       {
+        "agency": "AG100",
+        "delta": -20088.0,
+        "kind": "booking_payment",
+        "ref": "WB10002",
+        "ts": 1794814885.5280778
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "journey": "search-quote-book-pay-docs",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "delhi.sub",
+      "password": "Sandbox#Del2"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d",
+      "user_id": "U4",
+      "role": "sub_agent",
+      "agency_id": "AG200"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/hotels/search",
+     "query": "city=Dubai",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "results": [
+       {
+        "hotel_id": "H201",
+        "name": "Marina Pearl Hotel",
+        "city": "Dubai",
+        "stars": 5,
+        "rooms": [
+         {
+          "room_code": "DLX",
+          "name": "Deluxe King",
+          "rate": 14500,
+          "refundable": true
+         },
+         {
+          "room_code": "STE",
+          "name": "Marina Suite",
+          "rate": 26800,
+          "refundable": true
+         }
+        ]
+       },
+       {
+        "hotel_id": "H202",
+        "name": "Desert Rose Suites",
+        "city": "Dubai",
+        "stars": 4,
+        "rooms": [
+         {
+          "room_code": "STD",
+          "name": "Twin Room",
+          "rate": 9100,
+          "refundable": false
+         }
+        ]
+       }
+      ],
+      "count": 2
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/hotels/H201",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "hotel_id": "H201",
+      "name": "Marina Pearl Hotel",
+      "city": "Dubai",
+      "stars": 5,
+      "rooms": [
+       {
+        "room_code": "DLX",
+        "name": "Deluxe King",
+        "rate": 14500,
+        "refundable": true,
+        "cancel_fee_pct": 0
+       },
+       {
+        "room_code": "STE",
+        "name": "Marina Suite",
+        "rate": 26800,
+        "refundable": true,
+        "cancel_fee_pct": 20
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": {
+      "hotel_id": "H201",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "coupon": "MONSOON5"
+     },
+     "status": 200,
+     "response_body": {
+      "quote_id": "Q10003",
+      "hotel_id": "H201",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "gross": 46110.0,
+      "discount": 2305.5,
+      "total": 43804.5,
+      "currency": "INR",
+      "expires_in": 900
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": {
+      "quote_id": "Q10003",
+      "travellers": [
+       {
+        "name": "Vikram Sethi",
+        "passport": "N7712038"
+       },
+       {
+        "name": "Ira Sethi",
+        "passport": "N7712039"
+       }
+      ],
+      "contact_email": "delhi.sub@agency.example"
+     },
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10004",
+      "agency_id": "AG200",
+      "status": "HELD",
+      "hotel_id": "H201",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "amount": 43804.5,
+      "currency": "INR",
+      "contact_email": "delhi.sub@agency.example",
+      "created_by": "U4",
+      "travellers": [
+       {
+        "name": "Vikram Sethi",
+        "passport": "N*****38"
+       },
+       {
+        "name": "Ira Sethi",
+        "passport": "N*****39"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings/WB10004/pay",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10004",
+      "status": "CONFIRMED",
+      "charged": 43804.5,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings/WB10004",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10004",
+      "agency_id": "AG200",
+      "status": "CONFIRMED",
+      "hotel_id": "H201",
+      "room_code": "DLX",
+      "nights": 3,
+      "rooms": 1,
+      "amount": 43804.5,
+      "currency": "INR",
+      "contact_email": "delhi.sub@agency.example",
+      "created_by": "U4",
+      "travellers": [
+       {
+        "name": "Vikram Sethi",
+        "passport": "N*****38"
+       },
+       {
+        "name": "Ira Sethi",
+        "passport": "N*****39"
+       }
+      ]
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings/WB10004/voucher",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "voucher_no": "V-WB10004",
+      "booking_id": "WB10004",
+      "hotel": "Marina Pearl Hotel",
+      "city": "Dubai",
+      "status": "CONFIRMED",
+      "lead_guest": "Vikram Sethi",
+      "contact_email": "delhi.sub@agency.example",
+      "nights": 3
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/invoices/WB10004",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "invoice_no": "INV-WB10004",
+      "booking_id": "WB10004",
+      "agency_id": "AG200",
+      "billed_to": "Delhi Darshan Tours",
+      "gstin": "07PQRSX6789K1Z2",
+      "amount": 43804.5,
+      "paid": 43804.5,
+      "refunded": 0.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/wallet",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG200",
+      "balance": 456195.5,
+      "currency": "INR",
+      "recent": [
+       {
+        "agency": "AG200",
+        "delta": -43804.5,
+        "kind": "booking_payment",
+        "ref": "WB10004",
+        "ts": 1794814885.539731
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "journey": "book-pay-cancel-refund",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "goa.admin",
+      "password": "Sandbox#Goa1"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94",
+      "user_id": "U1",
+      "role": "agency_admin",
+      "agency_id": "AG100"
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": {
+      "hotel_id": "H302",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1
+     },
+     "status": 200,
+     "response_body": {
+      "quote_id": "Q10005",
+      "hotel_id": "H302",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1,
+      "gross": 7776.0,
+      "discount": 0.0,
+      "total": 7776.0,
+      "currency": "INR",
+      "expires_in": 900
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": {
+      "quote_id": "Q10005",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z4829173"
+       }
+      ],
+      "contact_email": "ops@goagetaways.example"
+     },
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10006",
+      "agency_id": "AG100",
+      "status": "HELD",
+      "hotel_id": "H302",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1,
+      "amount": 7776.0,
+      "currency": "INR",
+      "contact_email": "ops@goagetaways.example",
+      "created_by": "U1",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z*****73"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings/WB10006/pay",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10006",
+      "status": "CONFIRMED",
+      "charged": 7776.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings/WB10006/cancel",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10006",
+      "status": "CANCELLED",
+      "refund": 7776.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings/WB10006",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10006",
+      "agency_id": "AG100",
+      "status": "CANCELLED",
+      "hotel_id": "H302",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1,
+      "amount": 7776.0,
+      "currency": "INR",
+      "contact_email": "ops@goagetaways.example",
+      "created_by": "U1",
+      "travellers": [
+       {
+        "name": "Ananya Rao",
+        "passport": "Z*****73"
+       }
+      ]
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/wallet",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "balance": 479912.0,
+      "currency": "INR",
+      "recent": [
+       {
+        "agency": "AG100",
+        "delta": -20088.0,
+        "kind": "booking_payment",
+        "ref": "WB10002",
+        "ts": 1794814885.5280778
+       },
+       {
+        "agency": "AG100",
+        "delta": -7776.0,
+        "kind": "booking_payment",
+        "ref": "WB10006",
+        "ts": 1794814885.5484865
+       },
+       {
+        "agency": "AG100",
+        "delta": 7776.0,
+        "kind": "refund",
+        "ref": "WB10006",
+        "ts": 1794814885.5495985
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "journey": "hold-then-release",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "delhi.admin",
+      "password": "Sandbox#Del1"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTMiLCAiZXhwIjogMTc5NDgyMjA4NX0.1ce58cf8730ff34e12af70a7ab1c9a15",
+      "user_id": "U3",
+      "role": "agency_admin",
+      "agency_id": "AG200"
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTMiLCAiZXhwIjogMTc5NDgyMjA4NX0.1ce58cf8730ff34e12af70a7ab1c9a15"
+     },
+     "request_body": {
+      "hotel_id": "H401",
+      "room_code": "DLX",
+      "nights": 1,
+      "rooms": 2
+     },
+     "status": 200,
+     "response_body": {
+      "quote_id": "Q10007",
+      "hotel_id": "H401",
+      "room_code": "DLX",
+      "nights": 1,
+      "rooms": 2,
+      "gross": 18656.0,
+      "discount": 0.0,
+      "total": 18656.0,
+      "currency": "INR",
+      "expires_in": 900
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTMiLCAiZXhwIjogMTc5NDgyMjA4NX0.1ce58cf8730ff34e12af70a7ab1c9a15"
+     },
+     "request_body": {
+      "quote_id": "Q10007",
+      "travellers": [
+       {
+        "name": "Vikram Sethi",
+        "passport": "N7712038"
+       },
+       {
+        "name": "Ira Sethi",
+        "passport": "N7712039"
+       }
+      ],
+      "contact_email": "desk@delhidarshan.example"
+     },
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10008",
+      "agency_id": "AG200",
+      "status": "HELD",
+      "hotel_id": "H401",
+      "room_code": "DLX",
+      "nights": 1,
+      "rooms": 2,
+      "amount": 18656.0,
+      "currency": "INR",
+      "contact_email": "desk@delhidarshan.example",
+      "created_by": "U3",
+      "travellers": [
+       {
+        "name": "Vikram Sethi",
+        "passport": "N*****38"
+       },
+       {
+        "name": "Ira Sethi",
+        "passport": "N*****39"
+       }
+      ]
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/bookings/WB10008/cancel",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTMiLCAiZXhwIjogMTc5NDgyMjA4NX0.1ce58cf8730ff34e12af70a7ab1c9a15"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "booking_id": "WB10008",
+      "status": "CANCELLED",
+      "refund": 0.0,
+      "currency": "INR"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/bookings",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTMiLCAiZXhwIjogMTc5NDgyMjA4NX0.1ce58cf8730ff34e12af70a7ab1c9a15"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "bookings": [
+       {
+        "booking_id": "WB10004",
+        "agency_id": "AG200",
+        "status": "CONFIRMED",
+        "hotel_id": "H201",
+        "room_code": "DLX",
+        "nights": 3,
+        "rooms": 1,
+        "amount": 43804.5,
+        "currency": "INR",
+        "contact_email": "delhi.sub@agency.example",
+        "created_by": "U4",
+        "travellers": [
+         {
+          "name": "Vikram Sethi",
+          "passport": "N*****38"
+         },
+         {
+          "name": "Ira Sethi",
+          "passport": "N*****39"
+         }
+        ]
+       },
+       {
+        "booking_id": "WB10008",
+        "agency_id": "AG200",
+        "status": "CANCELLED",
+        "hotel_id": "H401",
+        "room_code": "DLX",
+        "nights": 1,
+        "rooms": 2,
+        "amount": 18656.0,
+        "currency": "INR",
+        "contact_email": "desk@delhidarshan.example",
+        "created_by": "U3",
+        "travellers": [
+         {
+          "name": "Vikram Sethi",
+          "passport": "N*****38"
+         },
+         {
+          "name": "Ira Sethi",
+          "passport": "N*****39"
+         }
+        ]
+       }
+      ],
+      "count": 2
+     }
+    }
+   ]
+  },
+  {
+   "journey": "welcome-coupon",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "goa.sub",
+      "password": "Sandbox#Goa2"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462",
+      "user_id": "U2",
+      "role": "sub_agent",
+      "agency_id": "AG100"
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": {
+      "hotel_id": "H102",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1,
+      "coupon": "WELCOME10"
+     },
+     "status": 200,
+     "response_body": {
+      "quote_id": "Q10009",
+      "hotel_id": "H102",
+      "room_code": "STD",
+      "nights": 2,
+      "rooms": 1,
+      "gross": 6264.0,
+      "discount": 626.4,
+      "total": 5637.6,
+      "currency": "INR",
+      "expires_in": 900
+     }
+    },
+    {
+     "method": "POST",
+     "path": "/api/v3/quotes",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTIiLCAiZXhwIjogMTc5NDgyMjA4NX0.428d4853f4eeee7b216dde16cec3b462"
+     },
+     "request_body": {
+      "hotel_id": "H102",
+      "room_code": "STD",
+      "nights": 3,
+      "rooms": 1,
+      "coupon": "WELCOME10"
+     },
+     "status": 409,
+     "response_body": {
+      "error": "coupon already used by this agency"
+     }
+    }
+   ]
+  },
+  {
+   "journey": "profile",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "delhi.sub",
+      "password": "Sandbox#Del2"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d",
+      "user_id": "U4",
+      "role": "sub_agent",
+      "agency_id": "AG200"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/me",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "id": "U4",
+      "username": "delhi.sub",
+      "role": "sub_agent",
+      "agency": "AG200",
+      "display_name": "Arjun (Delhi Darshan)",
+      "phone": "+91-90000-00004"
+     }
+    },
+    {
+     "method": "PATCH",
+     "path": "/api/v3/me",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTQiLCAiZXhwIjogMTc5NDgyMjA4NX0.61ef927a79f02be151e587ea59cd975d"
+     },
+     "request_body": {
+      "display_name": "Arjun K (Delhi Darshan)",
+      "phone": "+91-90000-00044"
+     },
+     "status": 200,
+     "response_body": {
+      "id": "U4",
+      "username": "delhi.sub",
+      "role": "sub_agent",
+      "agency": "AG200",
+      "display_name": "Arjun K (Delhi Darshan)",
+      "phone": "+91-90000-00044"
+     }
+    }
+   ]
+  },
+  {
+   "journey": "agency-admin",
+   "entries": [
+    {
+     "method": "POST",
+     "path": "/api/v3/auth/login",
+     "query": "",
+     "auth": false,
+     "request_headers": {},
+     "request_body": {
+      "username": "goa.admin",
+      "password": "Sandbox#Goa1"
+     },
+     "status": 200,
+     "response_body": {
+      "token": "eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94",
+      "user_id": "U1",
+      "role": "agency_admin",
+      "agency_id": "AG100"
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/agency/markup",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "percent": 8.0
+     }
+    },
+    {
+     "method": "PUT",
+     "path": "/api/v3/agency/markup",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": {
+      "percent": 9
+     },
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "percent": 9.0
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/agency/markup",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "percent": 9.0
+     }
+    },
+    {
+     "method": "GET",
+     "path": "/api/v3/agency/users",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": null,
+     "status": 200,
+     "response_body": {
+      "users": [
+       {
+        "id": "U1",
+        "username": "goa.admin",
+        "role": "agency_admin",
+        "display_name": "Rhea (Goa Getaways)"
+       },
+       {
+        "id": "U2",
+        "username": "goa.sub",
+        "role": "sub_agent",
+        "display_name": "Kabir (Goa Getaways)"
+       }
+      ]
+     }
+    },
+    {
+     "method": "PUT",
+     "path": "/api/v3/agency/markup",
+     "query": "",
+     "auth": true,
+     "request_headers": {
+      "Authorization": "Bearer eyJ1aWQiOiAiVTEiLCAiZXhwIjogMTc5NDgyMjA4NX0.08fea3ffa996939e4c789d906851aa94"
+     },
+     "request_body": {
+      "percent": 8
+     },
+     "status": 200,
+     "response_body": {
+      "agency_id": "AG100",
+      "percent": 8.0
+     }
+    }
+   ]
+  }
+ ]
+}

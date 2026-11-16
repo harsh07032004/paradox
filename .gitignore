@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+out/
+bench/runs/
+holdout/runs/
+submission/render/
+.venv/
