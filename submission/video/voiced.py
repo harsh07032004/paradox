@@ -21,6 +21,11 @@ from submission.video.build_video import HERE, SCENES, assemble
 LEAD, TAIL = 0.14, 0.26   # air kept before and after each spoken line (seconds, in the original take)
 GAP = 0.42                # silence between lines in the final cut
 INTRO, OUTRO = 0.55, 1.6  # before the first line and after the last
+# Speech cleanup, per line: rumble and clicks out, light FFT denoise for the "musical noise" a browser's noise
+# suppression leaves behind, less mud, more presence, a softer top end where that speckle lives, gentle de-essing.
+CLEAN = ("highpass=f=85,adeclick=w=55:o=75,afftdn=nr=20:nf=-58:tn=1,afwtdn=percent=60:adaptive=1:samples=8192,"
+         "equalizer=f=250:t=o:w=1:g=-2.5,equalizer=f=2800:t=o:w=1.2:g=2.5,"
+         "highshelf=f=5000:g=-8,lowpass=f=8000:p=2,deesser=i=0.5")
 
 
 def dur(f: Path) -> float:
@@ -57,9 +62,9 @@ def main() -> None:
         e = min(o["end"] + TAIL, (o["end"] + next_start) / 2)
         gain = ref_db - al[k]["summary"]["speech_db"]
         f = tmp / f"l{i:02d}.wav"
-        af = f"atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS,volume={gain:.2f}dB,afade=t=in:d=0.04,afade=t=out:st={e - s - 0.06:.3f}:d=0.06"
-        if a.tempo != 1.0:
-            af += f",atempo={a.tempo}"
+        af = f"atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS,volume={gain:.2f}dB,{CLEAN},afade=t=in:d=0.04,afade=t=out:st={e - s - 0.06:.3f}:d=0.06"
+        if a.tempo != 1.0:  # rubberband keeps pitch and formants; far cleaner on speech than atempo
+            af += f",rubberband=tempo={a.tempo}:transients=mixed:formant=preserved:pitchq=quality:window=standard"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(takes[k]), "-af", af, "-ac", "1", "-ar", "48000", str(f)], check=True)
         parts.append(f)
         seg_len.append(dur(f))
@@ -77,9 +82,13 @@ def main() -> None:
     for i, f in enumerate(parts):
         inputs += ["-i", str(f)]
         filt.append(f"[{i}:a]adelay={int(starts[i] * 1000)}:all=1[a{i}]")
+    # a near-silent room tone under the voice, so gaps the browser gated to digital silence don't sound chopped
+    inputs += ["-f", "lavfi", "-i", f"anoisesrc=c=pink:a=0.0009:r=48000:d={sum(durs):.3f}"]
+    filt.append(f"[{n}:a]lowpass=f=5000,highpass=f=120[room]")
     filt.append("".join(f"[a{i}]" for i in range(n)) + f"amix=inputs={n}:normalize=0,"
-                "highpass=f=80,acompressor=threshold=-20dB:ratio=2.5:attack=5:release=120,"
-                f"loudnorm=I=-16:TP=-1.5:LRA=11,apad,atrim=0:{sum(durs):.3f}[out]")
+                "acompressor=threshold=-26dB:ratio=1.8:attack=12:release=200:makeup=2[v]")
+    filt.append("[v][room]amix=inputs=2:normalize=0:duration=first,"
+                f"loudnorm=I=-14:TP=-1.2:LRA=9,volume=2.2dB,alimiter=limit=0.89:attack=3:release=60:level=false,apad,atrim=0:{sum(durs):.3f}[out]")
     voice = tmp / "voice.wav"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs, "-filter_complex", ";".join(filt), "-map", "[out]",
                     "-ar", "48000", str(voice)], check=True)
