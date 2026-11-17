@@ -222,12 +222,12 @@ def build():
         img = fitz.open(str(png))
         rect = img[0].rect
         pg = pdf.new_page(width=rect.width * 0.5, height=rect.height * 0.5)
-        pg.insert_image(pg.rect, filename=str(png))
+        pg.insert_image(pg.rect, stream=fitz.Pixmap(str(png)).tobytes("jpg", jpg_quality=92))  # JPEG keeps the PDF small
     cp = prs.core_properties
     cp.title, cp.author, cp.last_modified_by, cp.comments, cp.subject = "Paradox", TEAM, TEAM, "", "VoyageHack 4.0 Round 1"
     prs.save(OUT / "Paradox_VoyageHack4_Round1.pptx")
     pdf.set_metadata({"title": "Paradox", "author": TEAM, "subject": "VoyageHack 4.0 Round 1", "creator": TEAM, "producer": TEAM})
-    pdf.save(OUT / "Paradox_VoyageHack4_Round1.pdf")
+    pdf.save(OUT / "Paradox_VoyageHack4_Round1.pdf", garbage=4, deflate=True)
     print("saved deck + pdf")
 
 
