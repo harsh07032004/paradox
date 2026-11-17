@@ -21,8 +21,9 @@ from pptx.util import Emu
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "submission"
 SLIDES = OUT / "slides"
-TEAM = os.environ.get("PARADOX_TEAM", "Team Paradox")
+TEAM = os.environ.get("PARADOX_TEAM", "Team BTYECODE")
 REPO = "github.com/harsh07032004/paradox"
+MEMBERS = os.environ.get("PARADOX_MEMBERS", "Harsh Kumar (lead) · Bhavya Sharma · Rishi Agarwal · Parthib Saha")
 LIVE = "harsh07032004.github.io/paradox"
 BROWSERS = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", r"C:\Program Files\Google\Chrome\Application\chrome.exe",
             "/usr/bin/google-chrome", "/usr/bin/chromium"]
@@ -59,88 +60,129 @@ def slides(b: dict, h: list) -> list[tuple[str, str, str]]:
   <div class="ring" style="position:absolute;right:-140px;top:-140px;width:520px;height:520px;border-radius:50%;background:var(--yellow)"></div>
   <div style="position:absolute;right:250px;bottom:-70px;width:150px;height:150px;border-radius:50%;background:#fff;opacity:.95"></div>
   <div class="eyebrow" style="color:#CFE0F7">VoyageHack 4.0 &nbsp;·&nbsp; Fraud Prevention &amp; Security</div>
-  <div style="margin-top:210px;font:900 200px/0.9 Montserrat;letter-spacing:-6px;color:#fff">Paradox</div>
+  <div style="margin-top:170px;font:900 200px/0.9 Montserrat;letter-spacing:-6px;color:#fff">Paradox</div>
+  <div style="margin-top:26px;font:600 34px Montserrat;color:#DCE8F8">Agentic real-time security testing for B2B travel</div>
   <div style="margin-top:44px;font:600 54px/1.2 Montserrat;color:#fff;max-width:1400px">Scanners look for bad inputs.<br>Paradox looks for <span style="color:var(--navy);background:var(--yellow);padding:0 14px;border-radius:8px">impossible outcomes.</span></div>
-  <div style="position:absolute;left:120px;bottom:64px;font:500 24px Inter;color:#DCE8F8">{TEAM} &nbsp;·&nbsp; Agentic real-time security testing for B2B travel</div>
+  <div style="position:absolute;left:120px;bottom:60px;color:#DCE8F8"><div style="font:700 28px Montserrat;color:#fff">{TEAM}</div><div style="font:500 23px Inter;margin-top:8px">{MEMBERS}</div></div>
 </div>""")
 
     s1 = page(f"""
-<div class="pad">
-  <div class="eyebrow">The idea</div>
-  <h1 style="font:800 62px/1.12 Montserrat;margin-top:22px;max-width:1650px">Every request below returns <span class="hl">200 OK</span>.<br>The agency just made ₹7,776 out of nothing.</h1>
-  <div style="display:grid;grid-template-columns:940px 1fr;gap:90px;margin-top:48px">
-    <div>
+<div class="pad" style="padding-top:80px">
+  <div class="eyebrow">What Paradox is &nbsp;·&nbsp; Innovation</div>
+  <h1 style="font:800 50px/1.18 Montserrat;margin-top:18px;max-width:1680px">Paradox tests TBO's platform after every deploy and catches the bugs that <span class="hl">quietly lose money</span>.</h1>
+  <div class="cols3">
+    <div class="col">
+      <div class="num">1 &nbsp;The problem</div>
+      <h3>The costliest bugs look completely normal.</h3>
       <div class="ledger">
-        <div class="row"><span class="n">1</span><span class="a">Book a hotel</span><span class="v muted">held</span></div>
-        <div class="row"><span class="n">2</span><span class="a">Pay from wallet</span><span class="v">− ₹7,776</span></div>
-        <div class="row"><span class="n">3</span><span class="a">Cancel</span><span class="v">+ ₹7,776</span></div>
-        <div class="row bad"><span class="n">4</span><span class="a">Cancel again <em>changed by Paradox</em></span><span class="v">+ ₹7,776</span></div>
-        <div class="row total"><span class="n"></span><span class="a">Wallet after</span><span class="v">+ ₹7,776</span></div>
+        <div class="row"><span class="a">Book a hotel</span><span class="v muted">held</span></div>
+        <div class="row"><span class="a">Pay from the wallet</span><span class="v">− ₹7,776</span></div>
+        <div class="row"><span class="a">Cancel</span><span class="v">+ ₹7,776</span></div>
+        <div class="row bad"><span class="a">Cancel again <em>Paradox's change</em></span><span class="v">+ ₹7,776</span></div>
+        <div class="row total"><span class="a">Agency's wallet</span><span class="v">+ ₹7,776</span></div>
       </div>
-      <p style="font:500 25px/1.5 Inter;margin-top:26px;color:var(--text);max-width:920px">A scanner sees four normal responses. Paradox checks a rule every correct platform obeys: <b style="color:var(--ink)">an agency's balance can never grow from its own actions.</b></p>
+      <p>Every step returns <b>200 OK</b>. Scanners look for bad inputs, so they see nothing wrong.</p>
+      <p class="also">Same story with a fare the agent sets itself, or a sub-agent that quietly gains admin rights.</p>
     </div>
-    <div>
-      <div class="h" style="font:700 30px Montserrat;margin-bottom:26px">How it works</div>
-      <div class="how"><b>Learns the platform</b> from what TBO already has: recorded traffic, gateway logs, test accounts. No API spec.</div>
-      <div class="how"><b>Replays real journeys with one thing changed:</b> repeat, skip, another agency, its own price.</div>
-      <div class="how"><b>Checks 12 business rules</b> on a shadow ledger, with planted canary data to prove leaks.</div>
-      <div class="how"><b>Reports only what it proves:</b> reproduced 3 of 3 times, cut to the minimal steps, priced in ₹, retested on every deploy.</div>
+    <div class="col">
+      <div class="num">2 &nbsp;Our idea · the innovation</div>
+      <h3>Check the outcome, not the input.</h3>
+      <p>Paradox knows <b>12 rules</b> that every correct booking platform must keep. For example:</p>
+      <div class="rule">An agency never ends up richer from its own actions.</div>
+      <div class="rule">The same booking never costs less.</div>
+      <div class="rule">One agency never sees another agency's data.</div>
+      <p>It replays real user journeys with one sneaky change, then checks whether any rule broke.</p>
+    </div>
+    <div class="col dark">
+      <div class="num">3 &nbsp;Why it works</div>
+      <h3>A broken rule is proof, not a guess.</h3>
+      <div class="why"><b>The outcome can't lie.</b> If the wallet grew, money was created, whatever the server replied.</div>
+      <div class="why"><b>Checked three times</b> on fresh bookings before anything is reported.</div>
+      <div class="why"><b>Leaks prove themselves.</b> Every booking it makes carries planted fake names and passports.</div>
+      <div class="why"><b>Priced in rupees,</b> so the team fixes the costliest bug first.</div>
+      <div class="res">Result: 0 false alarms</div>
     </div>
   </div>
-  <div class="new"><span>What's new</span><i>Rules, not signatures</i><i>Loss measured in ₹</i><i>Leaks proven by canaries</i><i>Proofs cut to the minimum</i><i>Zombie and shadow APIs mapped</i></div>
 </div>""", """
-.ledger{border:2px solid var(--line);border-radius:22px;overflow:hidden}
-.row{display:grid;grid-template-columns:70px 1fr 220px;align-items:center;padding:17px 34px;border-top:2px solid var(--line);font:500 30px Inter;color:var(--ink)}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:34px;margin-top:44px}
+.col{background:#fff;border:2px solid var(--line);border-radius:24px;padding:34px 34px;min-height:690px}
+.col.dark{background:var(--navy);border:0}
+.num{font:800 19px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue)}
+.dark .num{color:var(--yellow)}
+.col h3{font:800 31px/1.22 Montserrat;color:var(--ink);margin:12px 0 22px}
+.dark h3{color:#fff}
+.col p{font:400 22px/1.48 Inter;color:var(--text);margin-top:18px}
+.col p.also{font-size:20px;color:var(--muted);border-top:2px dashed var(--line);padding-top:16px}
+.col p b{color:var(--ink)}
+.ledger{border:2px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-top:2px solid var(--line);font:500 21px Inter;color:var(--ink)}
 .row:first-child{border-top:0}
-.row .n{font:700 24px Montserrat;color:var(--blue)}
-.row .v{text-align:right;font:700 32px Montserrat}
+.row .v{font:700 21px Montserrat}
 .row .muted{color:var(--muted);font-weight:600}
-.row em{font:700 17px Inter;font-style:normal;background:var(--navy);color:var(--yellow);padding:5px 12px;border-radius:99px;margin-left:16px;vertical-align:4px}
 .row.bad{background:#FFF6D6}
-.row.total{background:var(--sky)}
-.row.total .a{font-weight:700}
-.row.total .v{color:var(--green);font-size:38px}
-.how{font:400 24px/1.45 Inter;color:var(--text);padding:2px 0 2px 28px;border-left:4px solid var(--blue);margin-bottom:30px}
-.how b{color:var(--ink);font-weight:600}
-.new{position:absolute;left:120px;right:120px;bottom:60px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.new span{font:700 18px Montserrat;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-right:10px}
-.new i{font:600 20px Inter;font-style:normal;color:var(--navy);background:var(--sky);padding:10px 20px;border-radius:99px}
+.row em{font:700 13px Inter;font-style:normal;background:var(--navy);color:var(--yellow);padding:4px 9px;border-radius:99px;margin-left:8px;vertical-align:3px}
+.row.total{background:var(--sky);font-weight:700}
+.row.total .v{color:var(--green)}
+.rule{font:600 22px/1.35 Inter;color:var(--navy);background:var(--sky);border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:12px 16px;margin-top:12px}
+.why{font:400 21.5px/1.45 Inter;color:#DCE8F8;padding:13px 0;border-top:1px solid rgba(255,255,255,.14)}
+.why:first-of-type{border-top:0;padding-top:0}
+.why b{color:#fff}
+.res{margin-top:16px;display:inline-block;background:var(--yellow);color:var(--navy);font:800 24px Montserrat;padding:10px 18px;border-radius:12px}
 """)
 
     s2 = page(f"""
-<div class="pad">
-  <div class="eyebrow">Impact &nbsp;·&nbsp; Feasibility &nbsp;·&nbsp; Adoption risk</div>
-  <h1 style="font:800 62px/1.12 Montserrat;margin-top:22px;max-width:1700px">It already works, including on a platform it has never seen.</h1>
-  <div class="cmp">
-    <div class="lbl"><b>Paradox</b><span>{found} of {total} planted bugs found · {P['false_positives']} false alarms</span></div>
-    <div class="track"><div class="fill" style="width:{found / total * 100:.1f}%"></div></div>
-    <div class="lbl" style="margin-top:34px"><b style="color:var(--muted)">Signature scanner, same inputs</b><span>{bfound} of {total} found · {B['false_positives']} false alarms</span></div>
-    <div class="track"><div class="fill grey" style="width:{bfound / total * 100:.1f}%"></div></div>
-    <p class="note">{b['trials']} test runs, each with bugs picked at random that Paradox had never seen. The scanner caught none of the money, cross-agency or permission bugs.</p>
+<div class="pad" style="padding-top:80px">
+  <div class="eyebrow">How it works &nbsp;·&nbsp; Potential impact &nbsp;·&nbsp; Adoption risk &amp; feasibility</div>
+  <h1 style="font:800 52px/1.16 Montserrat;margin-top:18px">How it works, and proof that it does.</h1>
+  <div class="tagline" style="margin-top:34px">Implementation &amp; technical feasibility</div>
+  <div class="steps">
+    <div><em>1</em><b>A deploy happens</b><span>Paradox sees what changed and tests that part first.</span></div><i>→</i>
+    <div><em>2</em><b>It learns the platform</b><span>maps every API and user journey from traffic and logs. No docs needed.</span></div><i>→</i>
+    <div><em>3</em><b>It tries to break the rules</b><span>replays real journeys with one sneaky change, safely, on its own test bookings.</span></div><i>→</i>
+    <div><em>4</em><b>It reports and re-checks</b><span>a ticket with the ₹ impact, proof and fix goes to the owning team; it closes itself once fixed.</span></div>
   </div>
-  <div class="three">
-    <div><h3>Impact for TBO</h3>
-      <p>Finds the flaws that cost money: double refunds, client-set fares, refunds above payment. Each comes with its loss in ₹, so fixes are ordered by money at risk.</p>
-      <p>On an unseen airline platform: {hfound - 2} of {htotal} at first contact, {hfound} of {htotal} after two general fixes, {len(hclean['false_positives'])} false alarms.</p></div>
-    <div><h3>Feasible today</h3>
-      <p>Working prototype in Python. It uses exactly the inputs TBO provides: the staging URL, test accounts, recorded traffic, gateway logs and deploy events.</p>
-      <p>A new deploy is tested first. Fixed tickets close themselves when the proof stops working.</p></div>
-    <div><h3>Adoption risk, handled</h3>
-      <p>Safe by construction: scope allowlist, touches only data it created, rate cap with back-off, kill switch, full audit log.</p>
-      <p>Policy questions go to a person, never auto-filed. No AI model in the decision path, so no per-scan cost and no data leaves TBO.</p></div>
+  <div class="built">Working prototype today: Python · all 8 stages of TBO's agent loop · 11 automated tests · uses only the inputs TBO gives teams</div>
+  <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:50px;margin-top:40px">
+    <div>
+      <div class="tagline">Potential impact</div>
+      <div class="tiles">
+        <div><b>{found}/{total}</b><span>planted bugs found. A signature scanner found {bfound}.</span></div>
+        <div><b>{P['false_positives']}</b><span>false alarms in {b['trials']} test runs. The scanner raised {B['false_positives']}.</span></div>
+        <div><b>{hfound}/{htotal}</b><span>bugs on an airline platform it was never built for</span></div>
+        <div><b>11.5 s</b><span>from a new deploy to a verified critical bug</span></div>
+      </div>
+      <p class="for"><b>For TBO:</b> money leaks are caught on staging before fraudsters find them, engineers only see proven bugs, and forgotten APIs finally get noticed.</p>
+    </div>
+    <div>
+      <div class="tagline">Adoption risk &amp; feasibility</div>
+      <div class="risk">
+        <div class="r"><b>Safe for staging?</b><span>Rate limit, automatic slow-down, a kill switch and a full audit log.</span></div>
+        <div class="r"><b>Touches real data?</b><span>No. It only changes bookings it created itself.</span></div>
+        <div class="r"><b>Cost and privacy?</b><span>No AI model in the loop, so no per-scan bill, and data never leaves TBO.</span></div>
+        <div class="r"><b>Easy to adopt?</b><span>Day 1 on staging, week 1 on every deploy, week 2 as a release gate.</span></div>
+        <div class="r"><b>Grey areas?</b><span>Policy questions go to a person, never auto-filed.</span></div>
+      </div>
+    </div>
   </div>
 </div>""", """
-.cmp{margin-top:56px;max-width:1680px}
-.lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
-.lbl b{font:800 32px Montserrat;color:var(--ink)}
-.lbl span{font:600 26px Inter;color:var(--text)}
-.track{height:46px;border-radius:12px;background:#F0F4FA;overflow:hidden}
-.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:12px}
-.fill.grey{background:#B7C2D3}
-.note{font:500 22px Inter;color:var(--muted);margin-top:20px}
-.three{position:absolute;left:120px;right:120px;bottom:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:56px}
-.three h3{font:800 30px Montserrat;margin-bottom:16px;padding-top:22px;border-top:6px solid var(--yellow)}
-.three p{font:400 23px/1.5 Inter;color:var(--text);margin-bottom:14px}
+.tagline{font:800 19px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.steps{display:flex;gap:14px;align-items:stretch}
+.steps div{flex:1;background:var(--sky);border-radius:20px;padding:22px 24px}
+.steps em{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--yellow);font:800 20px Montserrat;font-style:normal}
+.steps b{display:block;font:800 25px/1.2 Montserrat;color:var(--ink);margin-top:12px}
+.steps span{display:block;font:400 19.5px/1.42 Inter;color:var(--text);margin-top:8px}
+.steps i{font:800 32px Montserrat;color:var(--blue);font-style:normal;align-self:center}
+.built{margin-top:16px;font:600 19px Inter;color:var(--green)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tiles div{background:var(--navy);border-radius:18px;padding:16px 22px}
+.tiles b{display:block;font:900 40px Montserrat;color:var(--yellow)}
+.tiles span{display:block;font:500 17.5px/1.35 Inter;color:#DCE8F8;margin-top:4px}
+.risk .r{display:grid;grid-template-columns:215px 1fr;gap:14px;padding:16px 0;border-top:2px solid var(--line)}
+.risk .r:first-child{border-top:0;padding-top:4px}
+.risk b{font:700 22px/1.3 Montserrat;color:var(--ink)}
+.risk span{font:400 20px/1.45 Inter;color:var(--text)}
+.for{font:400 20.5px/1.5 Inter;color:var(--text);margin-top:18px;padding:16px 20px;background:var(--sky);border-radius:14px}
+.for b{color:var(--ink)}
 """)
 
     thanks = page(f"""

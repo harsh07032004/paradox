@@ -1,0 +1,130 @@
+[
+ {
+  "scene": 0,
+  "take": 2,
+  "voice_start": 0.55,
+  "voice_end": 8.44,
+  "scene_start": 0,
+  "scene_end": 8.86
+ },
+ {
+  "scene": 1,
+  "take": 1,
+  "voice_start": 8.86,
+  "voice_end": 25.4,
+  "scene_start": 8.86,
+  "scene_end": 25.82
+ },
+ {
+  "scene": 2,
+  "take": 2,
+  "voice_start": 25.82,
+  "voice_end": 31.41,
+  "scene_start": 25.82,
+  "scene_end": 31.83
+ },
+ {
+  "scene": 3,
+  "take": 2,
+  "voice_start": 31.83,
+  "voice_end": 47.74,
+  "scene_start": 31.83,
+  "scene_end": 48.16
+ },
+ {
+  "scene": 4,
+  "take": 2,
+  "voice_start": 48.16,
+  "voice_end": 57.46,
+  "scene_start": 48.16,
+  "scene_end": 57.88
+ },
+ {
+  "scene": 5,
+  "take": 1,
+  "voice_start": 57.88,
+  "voice_end": 72.18,
+  "scene_start": 57.88,
+  "scene_end": 72.6
+ },
+ {
+  "scene": 6,
+  "take": 2,
+  "voice_start": 72.6,
+  "voice_end": 87.15,
+  "scene_start": 72.6,
+  "scene_end": 87.57
+ },
+ {
+  "scene": 7,
+  "take": 1,
+  "voice_start": 87.57,
+  "voice_end": 98.99,
+  "scene_start": 87.57,
+  "scene_end": 99.41
+ },
+ {
+  "scene": 8,
+  "take": 1,
+  "voice_start": 99.41,
+  "voice_end": 109.07,
+  "scene_start": 99.41,
+  "scene_end": 109.49
+ },
+ {
+  "scene": 9,
+  "take": 1,
+  "voice_start": 109.49,
+  "voice_end": 124.37,
+  "scene_start": 109.49,
+  "scene_end": 124.79
+ },
+ {
+  "scene": 10,
+  "take": 1,
+  "voice_start": 124.79,
+  "voice_end": 132.57,
+  "scene_start": 124.79,
+  "scene_end": 132.99
+ },
+ {
+  "scene": 11,
+  "take": 2,
+  "voice_start": 132.99,
+  "voice_end": 141.12,
+  "scene_start": 132.99,
+  "scene_end": 141.54
+ },
+ {
+  "scene": 12,
+  "take": 1,
+  "voice_start": 141.54,
+  "voice_end": 152.39,
+  "scene_start": 141.54,
+  "scene_end": 152.81
+ },
+ {
+  "scene": 13,
+  "take": 2,
+  "voice_start": 152.81,
+  "voice_end": 165.67,
+  "scene_start": 152.81,
+  "scene_end": 166.09
+ },
+ {
+  "scene": 14,
+  "take": 1,
+  "voice_start": 166.09,
+  "voice_end": 177.1,
+  "scene_start": 166.09,
+  "scene_end": 177.52
+ },
+ {
+  "scene": 15,
+  "take": 1,
+  "voice_start": 177.52,
+  "voice_end": 184.87,
+  "scene_start": 177.52,
+  "scene_end": 186.47
+ }
+]

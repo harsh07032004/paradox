@@ -11,44 +11,65 @@ h1,h2,h3,.h{font-family:Montserrat,sans-serif;color:var(--ink)}
 .foot b{color:var(--blue);font-weight:700}
 .hl{background:linear-gradient(transparent 58%,var(--yellow) 58%);padding:0 6px}
 
-.ledger{border:2px solid var(--line);border-radius:22px;overflow:hidden}
-.row{display:grid;grid-template-columns:70px 1fr 220px;align-items:center;padding:17px 34px;border-top:2px solid var(--line);font:500 30px Inter;color:var(--ink)}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:34px;margin-top:44px}
+.col{background:#fff;border:2px solid var(--line);border-radius:24px;padding:34px 34px;min-height:690px}
+.col.dark{background:var(--navy);border:0}
+.num{font:800 19px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue)}
+.dark .num{color:var(--yellow)}
+.col h3{font:800 31px/1.22 Montserrat;color:var(--ink);margin:12px 0 22px}
+.dark h3{color:#fff}
+.col p{font:400 22px/1.48 Inter;color:var(--text);margin-top:18px}
+.col p.also{font-size:20px;color:var(--muted);border-top:2px dashed var(--line);padding-top:16px}
+.col p b{color:var(--ink)}
+.ledger{border:2px solid var(--line);border-radius:16px;overflow:hidden}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-top:2px solid var(--line);font:500 21px Inter;color:var(--ink)}
 .row:first-child{border-top:0}
-.row .n{font:700 24px Montserrat;color:var(--blue)}
-.row .v{text-align:right;font:700 32px Montserrat}
+.row .v{font:700 21px Montserrat}
 .row .muted{color:var(--muted);font-weight:600}
-.row em{font:700 17px Inter;font-style:normal;background:var(--navy);color:var(--yellow);padding:5px 12px;border-radius:99px;margin-left:16px;vertical-align:4px}
 .row.bad{background:#FFF6D6}
-.row.total{background:var(--sky)}
-.row.total .a{font-weight:700}
-.row.total .v{color:var(--green);font-size:38px}
-.how{font:400 24px/1.45 Inter;color:var(--text);padding:2px 0 2px 28px;border-left:4px solid var(--blue);margin-bottom:30px}
-.how b{color:var(--ink);font-weight:600}
-.new{position:absolute;left:120px;right:120px;bottom:60px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.new span{font:700 18px Montserrat;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-right:10px}
-.new i{font:600 20px Inter;font-style:normal;color:var(--navy);background:var(--sky);padding:10px 20px;border-radius:99px}
+.row em{font:700 13px Inter;font-style:normal;background:var(--navy);color:var(--yellow);padding:4px 9px;border-radius:99px;margin-left:8px;vertical-align:3px}
+.row.total{background:var(--sky);font-weight:700}
+.row.total .v{color:var(--green)}
+.rule{font:600 22px/1.35 Inter;color:var(--navy);background:var(--sky);border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:12px 16px;margin-top:12px}
+.why{font:400 21.5px/1.45 Inter;color:#DCE8F8;padding:13px 0;border-top:1px solid rgba(255,255,255,.14)}
+.why:first-of-type{border-top:0;padding-top:0}
+.why b{color:#fff}
+.res{margin-top:16px;display:inline-block;background:var(--yellow);color:var(--navy);font:800 24px Montserrat;padding:10px 18px;border-radius:12px}
 </style></head><body>
-<div class="pad">
-  <div class="eyebrow">The idea</div>
-  <h1 style="font:800 62px/1.12 Montserrat;margin-top:22px;max-width:1650px">Every request below returns <span class="hl">200 OK</span>.<br>The agency just made ₹7,776 out of nothing.</h1>
-  <div style="display:grid;grid-template-columns:940px 1fr;gap:90px;margin-top:48px">
-    <div>
+<div class="pad" style="padding-top:80px">
+  <div class="eyebrow">What Paradox is &nbsp;·&nbsp; Innovation</div>
+  <h1 style="font:800 50px/1.18 Montserrat;margin-top:18px;max-width:1680px">Paradox tests TBO's platform after every deploy and catches the bugs that <span class="hl">quietly lose money</span>.</h1>
+  <div class="cols3">
+    <div class="col">
+      <div class="num">1 &nbsp;The problem</div>
+      <h3>The costliest bugs look completely normal.</h3>
       <div class="ledger">
-        <div class="row"><span class="n">1</span><span class="a">Book a hotel</span><span class="v muted">held</span></div>
-        <div class="row"><span class="n">2</span><span class="a">Pay from wallet</span><span class="v">− ₹7,776</span></div>
-        <div class="row"><span class="n">3</span><span class="a">Cancel</span><span class="v">+ ₹7,776</span></div>
-        <div class="row bad"><span class="n">4</span><span class="a">Cancel again <em>changed by Paradox</em></span><span class="v">+ ₹7,776</span></div>
-        <div class="row total"><span class="n"></span><span class="a">Wallet after</span><span class="v">+ ₹7,776</span></div>
+        <div class="row"><span class="a">Book a hotel</span><span class="v muted">held</span></div>
+        <div class="row"><span class="a">Pay from the wallet</span><span class="v">− ₹7,776</span></div>
+        <div class="row"><span class="a">Cancel</span><span class="v">+ ₹7,776</span></div>
+        <div class="row bad"><span class="a">Cancel again <em>Paradox's change</em></span><span class="v">+ ₹7,776</span></div>
+        <div class="row total"><span class="a">Agency's wallet</span><span class="v">+ ₹7,776</span></div>
       </div>
-      <p style="font:500 25px/1.5 Inter;margin-top:26px;color:var(--text);max-width:920px">A scanner sees four normal responses. Paradox checks a rule every correct platform obeys: <b style="color:var(--ink)">an agency's balance can never grow from its own actions.</b></p>
+      <p>Every step returns <b>200 OK</b>. Scanners look for bad inputs, so they see nothing wrong.</p>
+      <p class="also">Same story with a fare the agent sets itself, or a sub-agent that quietly gains admin rights.</p>
     </div>
-    <div>
-      <div class="h" style="font:700 30px Montserrat;margin-bottom:26px">How it works</div>
-      <div class="how"><b>Learns the platform</b> from what TBO already has: recorded traffic, gateway logs, test accounts. No API spec.</div>
-      <div class="how"><b>Replays real journeys with one thing changed:</b> repeat, skip, another agency, its own price.</div>
-      <div class="how"><b>Checks 12 business rules</b> on a shadow ledger, with planted canary data to prove leaks.</div>
-      <div class="how"><b>Reports only what it proves:</b> reproduced 3 of 3 times, cut to the minimal steps, priced in ₹, retested on every deploy.</div>
+    <div class="col">
+      <div class="num">2 &nbsp;Our idea · the innovation</div>
+      <h3>Check the outcome, not the input.</h3>
+      <p>Paradox knows <b>12 rules</b> that every correct booking platform must keep. For example:</p>
+      <div class="rule">An agency never ends up richer from its own actions.</div>
+      <div class="rule">The same booking never costs less.</div>
+      <div class="rule">One agency never sees another agency's data.</div>
+      <p>It replays real user journeys with one sneaky change, then checks whether any rule broke.</p>
+    </div>
+    <div class="col dark">
+      <div class="num">3 &nbsp;Why it works</div>
+      <h3>A broken rule is proof, not a guess.</h3>
+      <div class="why"><b>The outcome can't lie.</b> If the wallet grew, money was created, whatever the server replied.</div>
+      <div class="why"><b>Checked three times</b> on fresh bookings before anything is reported.</div>
+      <div class="why"><b>Leaks prove themselves.</b> Every booking it makes carries planted fake names and passports.</div>
+      <div class="why"><b>Priced in rupees,</b> so the team fixes the costliest bug first.</div>
+      <div class="res">Result: 0 false alarms</div>
     </div>
   </div>
-  <div class="new"><span>What's new</span><i>Rules, not signatures</i><i>Loss measured in ₹</i><i>Leaks proven by canaries</i><i>Proofs cut to the minimum</i><i>Zombie and shadow APIs mapped</i></div>
 </div></body></html>

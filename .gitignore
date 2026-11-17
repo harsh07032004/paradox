@@ -6,4 +6,4 @@ holdout/runs/
 submission/render/
 .venv/
 submission/video/scenes/
-submission/video/*_voiced.mp4
+submission/video/_voice/

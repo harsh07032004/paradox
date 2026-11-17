@@ -11,37 +11,56 @@ h1,h2,h3,.h{font-family:Montserrat,sans-serif;color:var(--ink)}
 .foot b{color:var(--blue);font-weight:700}
 .hl{background:linear-gradient(transparent 58%,var(--yellow) 58%);padding:0 6px}
 
-.cmp{margin-top:56px;max-width:1680px}
-.lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
-.lbl b{font:800 32px Montserrat;color:var(--ink)}
-.lbl span{font:600 26px Inter;color:var(--text)}
-.track{height:46px;border-radius:12px;background:#F0F4FA;overflow:hidden}
-.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:12px}
-.fill.grey{background:#B7C2D3}
-.note{font:500 22px Inter;color:var(--muted);margin-top:20px}
-.three{position:absolute;left:120px;right:120px;bottom:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:56px}
-.three h3{font:800 30px Montserrat;margin-bottom:16px;padding-top:22px;border-top:6px solid var(--yellow)}
-.three p{font:400 23px/1.5 Inter;color:var(--text);margin-bottom:14px}
+.tagline{font:800 19px Montserrat;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.steps{display:flex;gap:14px;align-items:stretch}
+.steps div{flex:1;background:var(--sky);border-radius:20px;padding:22px 24px}
+.steps em{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--yellow);font:800 20px Montserrat;font-style:normal}
+.steps b{display:block;font:800 25px/1.2 Montserrat;color:var(--ink);margin-top:12px}
+.steps span{display:block;font:400 19.5px/1.42 Inter;color:var(--text);margin-top:8px}
+.steps i{font:800 32px Montserrat;color:var(--blue);font-style:normal;align-self:center}
+.built{margin-top:16px;font:600 19px Inter;color:var(--green)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tiles div{background:var(--navy);border-radius:18px;padding:16px 22px}
+.tiles b{display:block;font:900 40px Montserrat;color:var(--yellow)}
+.tiles span{display:block;font:500 17.5px/1.35 Inter;color:#DCE8F8;margin-top:4px}
+.risk .r{display:grid;grid-template-columns:215px 1fr;gap:14px;padding:16px 0;border-top:2px solid var(--line)}
+.risk .r:first-child{border-top:0;padding-top:4px}
+.risk b{font:700 22px/1.3 Montserrat;color:var(--ink)}
+.risk span{font:400 20px/1.45 Inter;color:var(--text)}
+.for{font:400 20.5px/1.5 Inter;color:var(--text);margin-top:18px;padding:16px 20px;background:var(--sky);border-radius:14px}
+.for b{color:var(--ink)}
 </style></head><body>
-<div class="pad">
-  <div class="eyebrow">Impact &nbsp;·&nbsp; Feasibility &nbsp;·&nbsp; Adoption risk</div>
-  <h1 style="font:800 62px/1.12 Montserrat;margin-top:22px;max-width:1700px">It already works, including on a platform it has never seen.</h1>
-  <div class="cmp">
-    <div class="lbl"><b>Paradox</b><span>172 of 172 planted bugs found · 0 false alarms</span></div>
-    <div class="track"><div class="fill" style="width:100.0%"></div></div>
-    <div class="lbl" style="margin-top:34px"><b style="color:var(--muted)">Signature scanner, same inputs</b><span>51 of 172 found · 66 false alarms</span></div>
-    <div class="track"><div class="fill grey" style="width:29.7%"></div></div>
-    <p class="note">22 test runs, each with bugs picked at random that Paradox had never seen. The scanner caught none of the money, cross-agency or permission bugs.</p>
+<div class="pad" style="padding-top:80px">
+  <div class="eyebrow">How it works &nbsp;·&nbsp; Potential impact &nbsp;·&nbsp; Adoption risk &amp; feasibility</div>
+  <h1 style="font:800 52px/1.16 Montserrat;margin-top:18px">How it works, and proof that it does.</h1>
+  <div class="tagline" style="margin-top:34px">Implementation &amp; technical feasibility</div>
+  <div class="steps">
+    <div><em>1</em><b>A deploy happens</b><span>Paradox sees what changed and tests that part first.</span></div><i>→</i>
+    <div><em>2</em><b>It learns the platform</b><span>maps every API and user journey from traffic and logs. No docs needed.</span></div><i>→</i>
+    <div><em>3</em><b>It tries to break the rules</b><span>replays real journeys with one sneaky change, safely, on its own test bookings.</span></div><i>→</i>
+    <div><em>4</em><b>It reports and re-checks</b><span>a ticket with the ₹ impact, proof and fix goes to the owning team; it closes itself once fixed.</span></div>
   </div>
-  <div class="three">
-    <div><h3>Impact for TBO</h3>
-      <p>Finds the flaws that cost money: double refunds, client-set fares, refunds above payment. Each comes with its loss in ₹, so fixes are ordered by money at risk.</p>
-      <p>On an unseen airline platform: 5 of 7 at first contact, 7 of 7 after two general fixes, 0 false alarms.</p></div>
-    <div><h3>Feasible today</h3>
-      <p>Working prototype in Python. It uses exactly the inputs TBO provides: the staging URL, test accounts, recorded traffic, gateway logs and deploy events.</p>
-      <p>A new deploy is tested first. Fixed tickets close themselves when the proof stops working.</p></div>
-    <div><h3>Adoption risk, handled</h3>
-      <p>Safe by construction: scope allowlist, touches only data it created, rate cap with back-off, kill switch, full audit log.</p>
-      <p>Policy questions go to a person, never auto-filed. No AI model in the decision path, so no per-scan cost and no data leaves TBO.</p></div>
+  <div class="built">Working prototype today: Python · all 8 stages of TBO's agent loop · 11 automated tests · uses only the inputs TBO gives teams</div>
+  <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:50px;margin-top:40px">
+    <div>
+      <div class="tagline">Potential impact</div>
+      <div class="tiles">
+        <div><b>172/172</b><span>planted bugs found. A signature scanner found 51.</span></div>
+        <div><b>0</b><span>false alarms in 22 test runs. The scanner raised 66.</span></div>
+        <div><b>7/7</b><span>bugs on an airline platform it was never built for</span></div>
+        <div><b>11.5 s</b><span>from a new deploy to a verified critical bug</span></div>
+      </div>
+      <p class="for"><b>For TBO:</b> money leaks are caught on staging before fraudsters find them, engineers only see proven bugs, and forgotten APIs finally get noticed.</p>
+    </div>
+    <div>
+      <div class="tagline">Adoption risk &amp; feasibility</div>
+      <div class="risk">
+        <div class="r"><b>Safe for staging?</b><span>Rate limit, automatic slow-down, a kill switch and a full audit log.</span></div>
+        <div class="r"><b>Touches real data?</b><span>No. It only changes bookings it created itself.</span></div>
+        <div class="r"><b>Cost and privacy?</b><span>No AI model in the loop, so no per-scan bill, and data never leaves TBO.</span></div>
+        <div class="r"><b>Easy to adopt?</b><span>Day 1 on staging, week 1 on every deploy, week 2 as a release gate.</span></div>
+        <div class="r"><b>Grey areas?</b><span>Policy questions go to a person, never auto-filed.</span></div>
+      </div>
+    </div>
   </div>
 </div></body></html>

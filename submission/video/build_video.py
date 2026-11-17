@@ -256,6 +256,24 @@ def render(html_path: Path, png: Path) -> None:
                     f"--screenshot={png}", html_path.as_uri()], check=True, capture_output=True, timeout=120)
 
 
+def assemble(pngs: list[Path], durs: list[float], out: Path, audio: Path | None = None) -> None:
+    """Joins scene stills with crossfades; scene i is fully on screen from sum(durs[:i]). Optional audio track."""
+    args = ["ffmpeg", "-y", "-loglevel", "error"]
+    for i, p in enumerate(pngs):  # clips overlap by XF for the crossfade, so each is extended by XF (except the last)
+        args += ["-loop", "1", "-framerate", "30", "-t", f"{durs[i] + (XF if i < len(pngs) - 1 else 0):.3f}", "-i", str(p)]
+    if audio:
+        args += ["-i", str(audio)]
+    chain, last, t = [], "[0:v]", 0.0
+    for i in range(1, len(pngs)):
+        t += durs[i - 1]
+        chain.append(f"{last}[{i}:v]xfade=transition=fade:duration={XF}:offset={t - XF / 2:.3f}[x{i}]")
+        last = f"[x{i}]"
+    chain.append(f"{last}fade=t=in:st=0:d=0.6,fade=t=out:st={sum(durs) - 0.8:.2f}:d=0.8,format=yuv420p[v]")
+    amap = ["-map", f"{len(pngs)}:a", "-c:a", "aac", "-b:a", "192k", "-ar", "48000"] if audio else []
+    subprocess.run(args + ["-filter_complex", ";".join(chain), "-map", "[v]", *amap, "-c:v", "libx264", "-preset", "slow", "-crf", "20",
+                           "-r", "30", "-t", f"{sum(durs):.3f}", "-movflags", "+faststart", str(out)], check=True)
+
+
 def build() -> None:
     SCENES.mkdir(exist_ok=True)
     sc = scenes()
@@ -267,20 +285,8 @@ def build() -> None:
         render(hp, png)
         pngs.append(png)
         print("scene", i, name, durs[i], "s")
-    # clips overlap by XF for the crossfade, so each clip is extended by XF (except the last)
-    args = ["ffmpeg", "-y", "-loglevel", "error"]
-    for i, p in enumerate(pngs):
-        args += ["-loop", "1", "-framerate", "30", "-t", str(durs[i] + (XF if i < len(pngs) - 1 else 0)), "-i", str(p)]
-    chain, last, t = [], "[0:v]", 0.0
-    for i in range(1, len(pngs)):
-        t += durs[i - 1]
-        out = f"[x{i}]"
-        chain.append(f"{last}[{i}:v]xfade=transition=fade:duration={XF}:offset={t:.2f}{out}")
-        last = out
-    chain.append(f"{last}fade=t=in:st=0:d=0.6,fade=t=out:st={sum(durs) - 0.8:.2f}:d=0.8,format=yuv420p[v]")
     out = HERE / "Paradox_idea_video.mp4"
-    subprocess.run(args + ["-filter_complex", ";".join(chain), "-map", "[v]", "-c:v", "libx264", "-preset", "slow", "-crf", "20",
-                           "-r", "30", "-movflags", "+faststart", str(out)], check=True)
+    assemble(pngs, durs, out)
     # timing: the line for scene i is read while scene i is on screen
     timing, at = [], 0.0
     for (name, step, line, _), d in zip(sc, durs):
