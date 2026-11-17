@@ -34,7 +34,7 @@ CSS = """
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1920px;height:1080px;overflow:hidden}
 body{font-family:Inter,sans-serif;color:var(--text);background:#F6F9FD;position:relative}
-.pad{position:absolute;inset:0;padding:110px 140px 130px;display:flex;flex-direction:column;justify-content:center}
+.pad{position:absolute;inset:0;padding:100px 140px 175px;display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font:700 24px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--blue)}
 .h{font:800 76px/1.08 Montserrat;color:var(--ink);letter-spacing:-1.5px}
 .h2{font:700 40px/1.25 Montserrat;color:var(--ink)}
@@ -42,7 +42,7 @@ body{font-family:Inter,sans-serif;color:var(--text);background:#F6F9FD;position:
 .card{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 18px 50px rgba(11,35,80,.08)}
 .mono{font-family:'JetBrains Mono',monospace}
 .chip{display:inline-block;border-radius:999px;padding:10px 22px;font:600 26px Inter}
-.foot{position:absolute;left:140px;right:140px;bottom:56px;display:flex;justify-content:space-between;font:600 20px Montserrat;color:#9AA6BA;letter-spacing:1px}
+.foot{display:none !important;position:absolute;left:140px;right:140px;bottom:56px;display:flex;justify-content:space-between;font:600 20px Montserrat;color:#9AA6BA;letter-spacing:1px}
 .foot b{color:var(--blue)}
 .shot{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(11,35,80,.22);border:1px solid var(--line);background:#fff}
 .shot img{display:block;width:100%}
@@ -81,7 +81,7 @@ def scenes() -> list[tuple[str, str, str, str]]:
   <div class="eyebrow" style="color:#CFE0F7">VoyageHack 4.0 &nbsp;·&nbsp; Fraud Prevention &amp; Security</div>
   <div style="margin-top:220px;font:900 210px/0.9 Montserrat;letter-spacing:-6px;color:#fff">Paradox</div>
   <div style="margin-top:46px;font:600 52px/1.2 Montserrat;color:#fff">Agentic real-time security testing for B2B travel</div>
-  <div style="position:absolute;left:140px;bottom:70px;font:600 26px Inter;color:#DCE8F8">{TEAM}</div></div>"""))
+  <div style="position:absolute;left:140px;bottom:180px;font:600 28px Inter;color:#DCE8F8">{TEAM}</div></div>"""))
 
     cards = [("Refund paid twice", "Cancel a booking that is already cancelled", "+₹7,776 to the wallet"),
              ("Fare set by the client", "Send your own total with the booking", "₹1 for a ₹20,000 stay"),
@@ -148,8 +148,8 @@ def scenes() -> list[tuple[str, str, str, str]]:
     add("proof", "Proof",
         "Like this one. Cancel a booking that's already cancelled, and the wallet gains seven thousand seven hundred and seventy-six rupees. "
         "Every single time. Paradox ran it three times to be sure, and cut it down to just four requests.",
-        page(shot("baseline", 140, 70, 1640, 690, 196) +
-             '<div class="tag" style="right:90px;bottom:48px"><em>3 of 3</em> fresh reproductions · minimised to <em>4 requests</em></div>'))
+        page(shot("baseline", 140, 60, 1640, 600, 196) +
+             '<div class="tag" style="right:90px;bottom:175px"><em>3 of 3</em> fresh reproductions · minimised to <em>4 requests</em></div>'))
 
     add("canary", "Canary data",
         "Every booking it creates carries fake details: a made-up name, email and passport. "
@@ -173,24 +173,24 @@ def scenes() -> list[tuple[str, str, str, str]]:
              '<div class="eyebrow">Ready for the owning team</div><div class="h" style="margin-top:24px;font-size:70px">One ticket<br>per finding.</div>'
              + ''.join(f'<div style="font:600 32px Inter;color:var(--ink);padding:18px 0;border-bottom:1px solid var(--line)"><span style="color:var(--blue);margin-right:16px">●</span>{t}</div>'
                        for t in ["Rupee impact and severity", "Owner from the asset map", "Minimal proof, balance after each step", "Ready curl reproduction", "Suggested fix and retest history"])
-             + '</div>' + shot("ticket", 980, 50, 800, 930, 0, 1008, 1920)))
+             + '</div>' + shot("ticket", 980, 50, 800, 890, 0, 1008, 1920)))
 
     add("deploy", "After a deploy",
         "And it keeps watching. When a new release went out, Paradox tested the changed part first. "
         "The new amend feature trusted whatever total the client sent. It was flagged as critical about twelve seconds later.",
         page(shot("amend", 140, 80, 1640, 490, 196) +
-             '<div class="tag" style="left:140px;bottom:90px">Deploy <em>v3.1</em> · bundle diff → new route tested first</div>'
-             '<div class="tag" style="right:140px;bottom:90px;background:var(--yellow);color:var(--navy)">Verified <b>11.5 s</b> after the change</div>'))
+             '<div class="tag" style="left:140px;bottom:180px">Deploy <em>v3.1</em> · bundle diff → new route tested first</div>'
+             '<div class="tag" style="right:140px;bottom:180px;background:var(--yellow);color:var(--navy)">Verified <b>11.5 s</b> after the change</div>'))
 
     add("fixed", "Retest",
         "Once the fix shipped, Paradox re-ran its proofs, and the fixed tickets closed on their own.",
-        page(shot("fixed", 310, 90, 1300, 830, 180) +
+        page(shot("fixed", 310, 80, 1300, 780, 180) +
              '<div class="tag" style="right:110px;top:60px">Hotfix <em>v3.1.1</em> · retest closes only what is really fixed</div>'))
 
     add("inventory", "API inventory",
         "Along the way, it maps every endpoint, even an old version one route nobody remembered, which was still leaking passports.",
         page(shot("inventory", 140, 80, 1640, 600, 0) +
-             '<div class="tag" style="left:140px;bottom:60px">Active · <em>zombie</em> · <em>shadow</em> · retired · new &nbsp;+&nbsp; a generated OpenAPI spec</div>'))
+             '<div class="tag" style="left:140px;bottom:175px">Active · <em>zombie</em> · <em>shadow</em> · retired · new &nbsp;+&nbsp; a generated OpenAPI spec</div>'))
 
     add("results", "Results",
         "Does it work? We planted a hundred and seventy-two random bugs. Paradox found all of them, with zero false alarms. "
@@ -240,7 +240,7 @@ def scenes() -> list[tuple[str, str, str, str]]:
   <div class="eyebrow" style="color:#9FB6DA">VoyageHack 4.0 · {TEAM}</div>
   <div style="margin-top:200px;font:900 170px/0.9 Montserrat;letter-spacing:-5px;color:#fff">Paradox</div>
   <div style="margin-top:44px;font:700 56px/1.2 Montserrat;color:#fff">Catch the bug that makes money appear,<br><span style="color:var(--yellow)">before someone else does.</span></div>
-  <div style="position:absolute;left:140px;bottom:80px;font:500 28px Inter;color:#C5D3EA;line-height:1.6">harsh07032004.github.io/paradox &nbsp;·&nbsp; github.com/harsh07032004/paradox</div>
+  <div style="position:absolute;left:140px;bottom:180px;font:500 28px Inter;color:#C5D3EA;line-height:1.6">harsh07032004.github.io/paradox &nbsp;·&nbsp; github.com/harsh07032004/paradox</div>
   </div>""", bg="#0B2350"))
     return S
 
