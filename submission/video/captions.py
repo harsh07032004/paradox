@@ -33,11 +33,17 @@ DISPLAY = [  # spoken words -> how they read on screen
     ("three times", "3 times"),
     ("twelve seconds", "12 seconds"),
 ]
+SPOKEN = {  # where the final take's wording differs from the script, captions follow what was said
+    0: "Hi, we are Team Byte Code, and this is Paradox, an idea for the security track of VoyageHack.",
+    12: "Does it work? We planted a hundred and seventy-two random bugs. Paradox found all of them, with zero false alarms. "
+        "A regular scanner found about thirty percent of the bugs.",
+}
 norm = lambda w: re.sub(r"[^a-z0-9]", "", w.lower())
 
 
 def words_with_times() -> list[list[dict]]:
     lines = [t["line"] for t in json.loads((HERE / "timing.json").read_text(encoding="utf-8"))]
+    lines = [SPOKEN.get(i, l) for i, l in enumerate(lines)]
     vt = json.loads((HERE / "voiced_timing.json").read_text(encoding="utf-8"))
     raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(SRC), "-vn", "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
                          capture_output=True, check=True).stdout

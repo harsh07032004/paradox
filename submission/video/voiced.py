@@ -18,8 +18,9 @@ from pathlib import Path
 
 from submission.video.build_video import HERE, SCENES, assemble
 
-LEAD, TAIL = 0.14, 0.26   # air kept before and after each spoken line (seconds, in the original take)
-GAP = 0.42                # silence between lines in the final cut
+LEAD, TAIL = 0.12, 0.2    # air kept before and after each spoken line (seconds, in the original take)
+GAP = 0.24                # silence between lines in the final cut
+PAUSE, KEEP, SIL_DB = 0.42, 0.3, -46   # inside a line: silences longer than PAUSE s (below SIL_DB) shrink to KEEP s
 INTRO, OUTRO = 0.55, 1.6  # before the first line and after the last
 # Speech cleanup, per line: rumble and clicks out, light FFT denoise for the "musical noise" a browser's noise
 # suppression leaves behind, less mud, more presence, a softer top end where that speckle lives, gentle de-essing.
@@ -62,7 +63,10 @@ def main() -> None:
         e = min(o["end"] + TAIL, (o["end"] + next_start) / 2)
         gain = ref_db - al[k]["summary"]["speech_db"]
         f = tmp / f"l{i:02d}.wav"
-        af = f"atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS,volume={gain:.2f}dB,{CLEAN},afade=t=in:d=0.04,afade=t=out:st={e - s - 0.06:.3f}:d=0.06"
+        # pauses inside a line longer than PAUSE are cut down to KEEP; fades are applied after, on the shortened clip
+        af = (f"atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS,volume={gain:.2f}dB,"
+              f"silenceremove=stop_periods=-1:stop_duration={PAUSE}:stop_threshold={SIL_DB}dB:stop_silence={KEEP}:detection=rms:window=0.03,"
+              f"{CLEAN},afade=t=in:d=0.04,areverse,afade=t=in:d=0.06,areverse")
         if a.tempo != 1.0:  # rubberband keeps pitch and formants; far cleaner on speech than atempo
             af += f",rubberband=tempo={a.tempo}:transients=mixed:formant=preserved:pitchq=quality:window=standard"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(takes[k]), "-af", af, "-ac", "1", "-ar", "48000", str(f)], check=True)
